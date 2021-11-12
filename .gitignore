@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+
+# vscode
+/.vscode
+
+# testing directory
+test
+
+.DS_Store
