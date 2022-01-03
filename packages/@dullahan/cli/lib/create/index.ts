@@ -5,6 +5,8 @@ import inquirer from 'inquirer';
 import path from 'path';
 // Interfaces
 import type { DullahanCli } from '../../dullahan-cli';
+// Local
+import getDependencies from './dependencies';
 
 const create = async (name: string, options: DullahanCli.Create.MethodArgs) => {
   // TODO: Validate name
@@ -47,6 +49,10 @@ const create = async (name: string, options: DullahanCli.Create.MethodArgs) => {
   ]);
 
   console.log(modules);
+
+  const dependencies = getDependencies(modules);
+
+  console.log(dependencies);
 };
 
 export default create;

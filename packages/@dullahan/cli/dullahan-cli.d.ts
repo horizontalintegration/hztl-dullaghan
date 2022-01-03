@@ -2,6 +2,8 @@
  * Create
  */
 export namespace DullahanCli.Create {
+  export type Module = 'tailwind' | 'storybook';
+
   export type MethodArgs = {
     force?: boolean;
   };
