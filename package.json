@@ -1,5 +1,5 @@
 {
-  "name": "dullahan",
+  "name": "dullaghan",
   "version": "0.0.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -7,13 +7,13 @@
   "contributors": [
     "Brian George <bgeorge@horizontal.com>"
   ],
-  "homepage": "https://github.com/horizontalintegration/hztl-dullahan",
+  "homepage": "https://github.com/horizontalintegration/hztl-dullaghan",
   "bugs": {
-    "url": "https://github.com/horizontalintegration/hztl-dullahan/issues"
+    "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/horizontalintegration/hztl-dullahan.git"
+    "url": "https://github.com/horizontalintegration/hztl-dullaghan.git"
   },
   "devDependencies": {
     "@sitecore-jss/sitecore-jss-nextjs": "^19.0.0",

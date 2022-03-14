@@ -1,11 +1,9 @@
 {
   "npmClient": "npm",
   "version": "0.1.4",
-  "packages": [
-    "packages/@dullahan/*"
-  ],
+  "packages": ["packages/@dullaghan/*"],
   "changelog": {
-    "repo": "horizontalintegration/hztl-dullahan",
+    "repo": "horizontalintegration/hztl-dullaghan",
     "labels": {
       "PR: New Feature": ":rocket: New Features",
       "PR: Breaking Change": ":boom: Breaking Changes",
