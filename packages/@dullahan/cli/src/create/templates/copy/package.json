@@ -22,8 +22,7 @@
     "start:connected": "npm-run-all --serial bootstrap --parallel next:dev watch-components",
     "test:silent": "jest --silent",
     "test": "jest",
-    "watch-components": "ts-node --project tsconfig.scripts.json scripts/sitecore/generate-component-factory.ts --watch",
-    "storybook": "start-storybook -s public -p 3000"
+    "watch-components": "ts-node --project tsconfig.scripts.json scripts/sitecore/generate-component-factory.ts --watch"
   },
   "dependencies": {
     "@sitecore-jss/sitecore-jss-nextjs": "^19.0.2",
@@ -35,12 +34,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@sitecore-jss/sitecore-jss-cli": "^19.0.2",
-    "@storybook/addon-actions": "^6.4.19",
-    "@storybook/addon-essentials": "^6.4.19",
-    "@storybook/addon-interactions": "^6.4.19",
-    "@storybook/addon-links": "^6.4.19",
-    "@storybook/react": "^6.4.19",
-    "@storybook/testing-library": "0.0.9",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@testing-library/react": "^12.1.4",
     "@types/localtunnel": "^2.0.1",

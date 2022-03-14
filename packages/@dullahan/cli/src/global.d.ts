@@ -8,6 +8,17 @@ declare namespace DullahanCli {
       config: {
         appName: string;
       };
+      scripts: Record<string, string>;
+      dependencies: Record<string, string>;
+      devDependencies: Record<string, string>;
+    }
+
+    type PackageTuple = [string, string];
+
+    interface ModuleConfig {
+      scripts?: PackageTuple[];
+      dependencies?: PackageTuple[];
+      devDependencies?: PackageTuple[];
     }
   }
 

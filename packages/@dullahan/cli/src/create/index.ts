@@ -1,4 +1,5 @@
 // Global
+import { execa } from 'execa';
 import { exit } from 'process';
 import { fileURLToPath } from 'url';
 import { resolve } from 'path';
@@ -6,7 +7,12 @@ import * as fs from 'fs';
 import chalk from 'chalk';
 import fsExtra from 'fs-extra';
 import inquirer from 'inquirer';
-import { execa } from 'execa';
+// Local
+import { storybookConfig } from './modules/storybook.js';
+
+const MODULE_CONFIG: Record<string, DullahanCli.Create.ModuleConfig> = {
+  storybook: storybookConfig,
+};
 
 const STATIC_FILES_TO_COPY = resolve(
   fileURLToPath(import.meta.url),
@@ -38,10 +44,18 @@ export const create = async (name: string, { config }: { config?: string }) => {
 
   // Create missing config
   console.log('');
-  const { appName } = await inquirer.prompt({
-    name: 'appName',
-    message: 'What is the corresponding Sitecore app name?',
-  });
+  const { appName, optionalModules } = await inquirer.prompt([
+    {
+      name: 'appName',
+      message: 'What is the corresponding Sitecore app name?',
+    },
+    {
+      name: 'optionalModules',
+      message: 'Optional modules to include',
+      type: 'checkbox',
+      choices: [{ name: 'Storybook', value: 'storybook' }],
+    },
+  ]);
 
   // Copy static files
   try {
@@ -49,6 +63,24 @@ export const create = async (name: string, { config }: { config?: string }) => {
   } catch (err) {
     console.error(err);
     exit(1);
+  }
+
+  // Copy optional module files
+  if (optionalModules.length > 0) {
+    (optionalModules as string[]).forEach((module) => {
+      const moduleFiles = resolve(
+        fileURLToPath(import.meta.url),
+        '../../../src/create/templates/modules',
+        module
+      );
+
+      try {
+        fsExtra.copySync(moduleFiles, DESTINATION_PATH);
+      } catch (err) {
+        console.error(err);
+        exit(1);
+      }
+    });
   }
 
   // Make updates to package.json
@@ -61,6 +93,24 @@ export const create = async (name: string, { config }: { config?: string }) => {
 
   packageJson.name = name;
   packageJson.config.appName = appName;
+
+  // Add optional module config
+  if (optionalModules.length > 0) {
+    (optionalModules as string[]).forEach((module) => {
+      if (MODULE_CONFIG.hasOwnProperty(module)) {
+        Object.entries(MODULE_CONFIG[module]).forEach(([key, val]) => {
+          const propMap = val.reduce(
+            (prev: Record<string, string>, curr: DullahanCli.Create.PackageTuple) => ({
+              ...prev,
+              [curr[0]]: curr[1],
+            }),
+            {}
+          );
+          (packageJson as any)[key] = { ...(packageJson as any)[key], ...propMap };
+        });
+      }
+    });
+  }
 
   fs.writeFileSync(packagePath, JSON.stringify(packageJson));
   // TODO: Run prettier on package

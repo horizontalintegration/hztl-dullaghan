@@ -1,4 +1,5 @@
 // Global
+import { execa } from 'execa';
 import { exit } from 'process';
 import { fileURLToPath } from 'url';
 import { resolve } from 'path';
@@ -6,7 +7,11 @@ import * as fs from 'fs';
 import chalk from 'chalk';
 import fsExtra from 'fs-extra';
 import inquirer from 'inquirer';
-import { execa } from 'execa';
+// Local
+import { storybookConfig } from './modules/storybook.js';
+const MODULE_CONFIG = {
+    storybook: storybookConfig,
+};
 const STATIC_FILES_TO_COPY = resolve(fileURLToPath(import.meta.url), '../../../src/create/templates/copy');
 export const create = async (name, { config }) => {
     const DESTINATION_PATH = resolve(name);
@@ -31,10 +36,18 @@ export const create = async (name, { config }) => {
     }
     // Create missing config
     console.log('');
-    const { appName } = await inquirer.prompt({
-        name: 'appName',
-        message: 'What is the corresponding Sitecore app name?',
-    });
+    const { appName, optionalModules } = await inquirer.prompt([
+        {
+            name: 'appName',
+            message: 'What is the corresponding Sitecore app name?',
+        },
+        {
+            name: 'optionalModules',
+            message: 'Optional modules to include',
+            type: 'checkbox',
+            choices: [{ name: 'Storybook', value: 'storybook' }],
+        },
+    ]);
     // Copy static files
     try {
         fsExtra.copySync(STATIC_FILES_TO_COPY, DESTINATION_PATH);
@@ -43,6 +56,20 @@ export const create = async (name, { config }) => {
         console.error(err);
         exit(1);
     }
+    // Copy module files
+    if (optionalModules.length > 0) {
+        optionalModules.forEach((module) => {
+            // Copy any static files
+            const moduleFiles = resolve(fileURLToPath(import.meta.url), '../../../src/create/templates/modules', module);
+            try {
+                fsExtra.copySync(moduleFiles, DESTINATION_PATH);
+            }
+            catch (err) {
+                console.error(err);
+                exit(1);
+            }
+        });
+    }
     // Make updates to package.json
     const packagePath = resolve(DESTINATION_PATH, 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packagePath, {
@@ -50,6 +77,20 @@ export const create = async (name, { config }) => {
     }));
     packageJson.name = name;
     packageJson.config.appName = appName;
+    // Add optional module config
+    if (optionalModules.length > 0) {
+        optionalModules.forEach((module) => {
+            if (MODULE_CONFIG.hasOwnProperty(module)) {
+                Object.entries(MODULE_CONFIG[module]).forEach(([key, val]) => {
+                    const propMap = val.reduce((prev, curr) => ({
+                        ...prev,
+                        [curr[0]]: curr[1],
+                    }), {});
+                    packageJson[key] = { ...packageJson[key], ...propMap };
+                });
+            }
+        });
+    }
     fs.writeFileSync(packagePath, JSON.stringify(packageJson));
     // TODO: Run prettier on package
     // Duplicate the .env file

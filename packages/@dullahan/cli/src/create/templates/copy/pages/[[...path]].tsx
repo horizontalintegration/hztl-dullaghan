@@ -31,7 +31,17 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const props = await sitecorePagePropsFactory.create(context);
 
-  return { props, revalidate: 300, notFound: props.notFound };
+  // Revalidate the ISR cache via the supplied environment variable
+  // or once every 300 seconds (5 minutes)
+  const revalidate = !!process.env.ISR_REVALIDATE_TIMER
+    ? parseInt(process.env.ISR_REVALIDATE_TIMER, 10)
+    : 300;
+
+  return {
+    props,
+    revalidate,
+    notFound: props.notFound,
+  };
 };
 
 const SitecorePage: NextPage<SitecorePageProps> = ({ componentProps, layoutData, notFound }) => {
