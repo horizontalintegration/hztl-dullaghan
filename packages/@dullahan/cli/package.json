@@ -1,6 +1,6 @@
 {
   "name": "@dullahan/cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Command line tools for headless development",
   "type": "module",
   "keywords": [
@@ -52,5 +52,6 @@
     "nodemon": "^2.0.15",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
-  }
+  },
+  "gitHead": "dd0e19c39b0b91165284448ba8339a9113c9e35f"
 }
