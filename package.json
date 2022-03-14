@@ -27,10 +27,5 @@
     "lerna": "^4.0.0",
     "next": "^12.0.3",
     "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "@dullahan/cli": "file:packages/@dullahan/cli",
-    "@dullahan/jest": "file:packages/@dullahan/jest",
-    "@dullahan/mock-placeholder": "file:packages/@dullahan/mock-placeholder"
   }
 }
