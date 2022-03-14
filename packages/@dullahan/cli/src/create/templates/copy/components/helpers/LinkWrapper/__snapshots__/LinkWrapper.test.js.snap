@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adds new tab content appropriately 1`] = `
+<a
+  class="hover:underline"
+  href="https://www.horizontaldigital.com"
+  internallinkmatcher="/^\\\\/|^\\\\#/g"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Link Text
+  <span
+    class="sr-only"
+  >
+    Only screen readers can access this text
+     (Opens in a new tab)
+  </span>
+  <svg
+    class="h-16 w-16 ml-2"
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M19.617 13.401l-.023 4.296h-8.669v18.096h18.096v-9.512l4.309-.012-.014 13.819H6.629V13.401h12.988zm2.297-7.489l.094 3.813 12.211.301-15.951 15.898 2.763 2.764 16.212-16.16.315 12.746 3.813.094-.469-18.983h-.004V6.38l-18.984-.468z"
+      fill="currentColor"
+    />
+  </svg>
+</a>
+`;
+
+exports[`allows for field to be of type LinkFieldValue 1`] = `
+<a
+  class="hover:underline"
+  href="https://www.horizontaldigital.com"
+  internallinkmatcher="/^\\\\/|^\\\\#/g"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Link Text
+  <span
+    class="sr-only"
+  >
+    Only screen readers can access this text
+     (Opens in a new tab)
+  </span>
+  <svg
+    class="h-16 w-16 ml-2"
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M19.617 13.401l-.023 4.296h-8.669v18.096h18.096v-9.512l4.309-.012-.014 13.819H6.629V13.401h12.988zm2.297-7.489l.094 3.813 12.211.301-15.951 15.898 2.763 2.764 16.212-16.16.315 12.746 3.813.094-.469-18.983h-.004V6.38l-18.984-.468z"
+      fill="currentColor"
+    />
+  </svg>
+</a>
+`;
+
+exports[`can suppress text and icons 1`] = `
+<a
+  class="hover:underline"
+  href="https://www.horizontaldigital.com"
+  internallinkmatcher="/^\\\\/|^\\\\#/g"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  
+  <span
+    class="sr-only"
+  >
+    Only screen readers can access this text
+     (Opens in a new tab)
+  </span>
+</a>
+`;

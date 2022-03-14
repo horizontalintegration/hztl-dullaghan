@@ -1,16 +1,18 @@
-# @dullahan/cli
+# `@dullahan/cli`
 
-## Installation
+> TODO: description
 
-## create
+## Usage
 
-## scaffold
+Install the CLI globally
 
 ```
-dullahan scaffold <ComponentName>
+npm i -g @dullahan/cli
+
 ```
 
-- Custom templates from default set
-- Config which templates are used
-- Add custom template files
-- Add custom questions
+List available methods
+
+```
+dullahan help
+```
