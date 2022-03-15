@@ -72,7 +72,7 @@ export const scaffold = async (name, options) => {
         exit(1);
     }
     // TODO: Detect which files already exist here, ask about deleting them as a checkbox
-    Promise.all(Object.entries(filesToCreate).map(([key, val]) => {
+    await Promise.all(Object.entries(filesToCreate).map(([key, val]) => {
         const filePath = resolve(COMPONENT_DIRECTORY_PATH, key.replace(/(\[name\])/g, name));
         const fileContents = val(scaffoldTemplateArgs);
         return fs.writeFile(filePath, fileContents, (err) => {

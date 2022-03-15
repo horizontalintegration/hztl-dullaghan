@@ -16,3 +16,9 @@ List available methods
 ```
 dullaghan help
 ```
+
+### create
+
+### git-hooks
+
+### scaffold

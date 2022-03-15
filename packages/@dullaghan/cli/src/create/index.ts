@@ -134,7 +134,9 @@ Intializing Git repository`);
 Project ${chalk.green(`${name}`)} has been created.
 
 To get started:
-- Add the appropriate Sitecore variables to the .env.local file
-- Run ${chalk.gray(`cd ${name} && jss start:connected`)}
+- Add the appropriate Sitecore variables to the ${chalk.cyan('.env.local')} file
+- Run ${chalk.cyan(`cd ${name} && jss start:connected`)}
+
+If you haven't already, run ${chalk.cyan('dullaghan git-hooks')} at the root of this repository.
 `);
 };

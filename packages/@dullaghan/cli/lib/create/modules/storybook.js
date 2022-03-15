@@ -1,4 +1,4 @@
-export const storybookConfig = {
+export const storybookPackageConfig = {
     scripts: [['storybook', 'start-storybook -s public -p 3000']],
     devDependencies: [
         ['@storybook/addon-actions', '^6.4.19'],

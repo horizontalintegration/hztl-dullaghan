@@ -1,1 +1,1 @@
-export declare const scaffold: (name: string, options: DullaghanCli.Scaffold.CLIArgs) => Promise<void>;
+export declare const scaffold: (name: string, options: DullaghanCli.Scaffold.CliArgs) => Promise<void>;

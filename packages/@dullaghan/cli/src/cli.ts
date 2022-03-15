@@ -4,9 +4,10 @@
 import { program } from 'commander';
 // Actions
 import { create } from './create/index.js';
+import { gitHooks } from './git-hooks/index.js';
 import { scaffold } from './scaffold/index.js';
 
-program.version('0.0.1').usage('<command> [options]');
+program.version('0.3.0').usage('<command> [options]');
 
 // Create
 program
@@ -15,6 +16,14 @@ program
   .option('-c, --config', 'relative path to the dullaghan.config.js file')
   .action((name: string, options: { config?: string }) => {
     create(name, options);
+  });
+
+// Git hooks
+program
+  .command('git-hooks')
+  .description('install hooks to enforce consistency in commits')
+  .action(() => {
+    gitHooks();
   });
 
 // Scaffold

@@ -40,13 +40,13 @@ export const authorableComponent = ({ name, subdirectory, hasPlaceholder, hasGet
     }
     const placeholderContent = hasPlaceholder
         ? `<PlaceholderWrapper
-          rendering={rendering}
-          name="placeholder-name"
-          render={(components) => (
-            <>{components}</>
-          )}
-          renderEmpty={(components) => ({ components })}
-        />`
+        rendering={rendering}
+        name="placeholder-name"
+        render={(components) => (
+          <>{components}</>
+        )}
+        renderEmpty={(components) => ({ components })}
+      />`
         : '';
     const componentInterface = `export interface ${name}Props {
   fields?: ComponentFields;${hasGetStaticProps || hasPlaceholder
