@@ -1,1 +1,1 @@
-export declare const storybookConfig: DullaghanCli.Create.ModuleConfig;
+export declare const storybookPackageConfig: DullaghanCli.Create.ModulePackageConfig;

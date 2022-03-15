@@ -8,9 +8,9 @@ import chalk from 'chalk';
 import fsExtra from 'fs-extra';
 import inquirer from 'inquirer';
 // Local
-import { storybookConfig } from './modules/storybook.js';
+import { storybookPackageConfig } from './modules/storybook.js';
 const MODULE_CONFIG = {
-    storybook: storybookConfig,
+    storybook: storybookPackageConfig,
 };
 const STATIC_FILES_TO_COPY = resolve(fileURLToPath(import.meta.url), '../../../src/create/templates/copy');
 export const create = async (name, { config }) => {
@@ -94,7 +94,6 @@ export const create = async (name, { config }) => {
     // TODO: Run prettier on package
     // Duplicate the .env file
     fsExtra.copySync(resolve(DESTINATION_PATH, '.env'), resolve(DESTINATION_PATH, '.env.local'));
-    // Create dynamic files based on config
     // Execute external command line setups
     console.log(`
 Intializing Git repository`);
@@ -108,7 +107,9 @@ Intializing Git repository`);
 Project ${chalk.green(`${name}`)} has been created.
 
 To get started:
-- Add the appropriate Sitecore variables to the .env.local file
-- Run ${chalk.gray(`cd ${name} && jss start:connected`)}
+- Add the appropriate Sitecore variables to the ${chalk.cyan('.env.local')} file
+- Run ${chalk.cyan(`cd ${name} && jss start:connected`)}
+
+If you haven't already, run ${chalk.cyan('dullaghan git-hooks')} at the root of this repository.
 `);
 };

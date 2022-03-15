@@ -56,6 +56,13 @@ declare namespace DullaghanCli {
 
     type ImportCategories = 'global' | 'test' | 'lib' | 'components' | 'local';
   }
+
+  /**
+   * Commit hooks
+   */
+  namespace CommitHooks {
+    type Template = (name: string) => string;
+  }
 }
 
 /**
