@@ -8,10 +8,10 @@ import chalk from 'chalk';
 import fsExtra from 'fs-extra';
 import inquirer from 'inquirer';
 // Local
-import { storybookConfig } from './modules/storybook.js';
+import { storybookPackageConfig } from './modules/storybook.js';
 
-const MODULE_CONFIG: Record<string, DullaghanCli.Create.ModuleConfig> = {
-  storybook: storybookConfig,
+const MODULE_CONFIG: Record<string, DullaghanCli.Create.ModulePackageConfig> = {
+  storybook: storybookPackageConfig,
 };
 
 const STATIC_FILES_TO_COPY = resolve(
@@ -117,8 +117,6 @@ export const create = async (name: string, { config }: { config?: string }) => {
 
   // Duplicate the .env file
   fsExtra.copySync(resolve(DESTINATION_PATH, '.env'), resolve(DESTINATION_PATH, '.env.local'));
-
-  // Create dynamic files based on config
 
   // Execute external command line setups
   console.log(`

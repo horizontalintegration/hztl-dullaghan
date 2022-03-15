@@ -15,7 +15,9 @@ declare namespace DullaghanCli {
 
     type PackageTuple = [string, string];
 
-    interface ModuleConfig {
+    type OptionalModule = 'storybook';
+
+    interface ModulePackageConfig {
       scripts?: PackageTuple[];
       dependencies?: PackageTuple[];
       devDependencies?: PackageTuple[];
@@ -26,11 +28,11 @@ declare namespace DullaghanCli {
    * Scaffold
    */
   namespace Scaffold {
-    interface CLIArgs {
+    interface CliArgs {
       config?: string;
     }
 
-    type CLIUserOptions = 'hasPlaceholder' | 'hasGetStaticProps' | 'hasNextDynamic';
+    type CliUserOptions = 'hasPlaceholder' | 'hasGetStaticProps' | 'hasNextDynamic';
 
     type TemplateDictionary = Record<`[name].${string}`, Template>;
 

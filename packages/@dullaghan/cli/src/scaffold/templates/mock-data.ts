@@ -47,7 +47,8 @@ export const mockData: DullaghanCli.Scaffold.Template = ({
 
   const rendering = !!renderingData
     ? `
-  rendering: {${renderingData}
+  rendering: {
+    componentName: '${name}',${renderingData}
   },
 `
     : '';

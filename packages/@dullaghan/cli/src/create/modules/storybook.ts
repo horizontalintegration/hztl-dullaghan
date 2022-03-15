@@ -1,4 +1,4 @@
-export const storybookConfig: DullaghanCli.Create.ModuleConfig = {
+export const storybookPackageConfig: DullaghanCli.Create.ModulePackageConfig = {
   scripts: [['storybook', 'start-storybook -s public -p 3000']],
   devDependencies: [
     ['@storybook/addon-actions', '^6.4.19'],

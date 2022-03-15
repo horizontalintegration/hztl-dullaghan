@@ -7,7 +7,7 @@ import { resolve } from 'path';
 // Utils
 import { getConfig } from '../utils/get-config.js';
 
-export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CLIArgs) => {
+export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliArgs) => {
   const config = getConfig(options.config || process.cwd());
 
   if (!config.scaffold) {
@@ -49,7 +49,7 @@ export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CLIA
   // Get the scaffold options
   const {
     scaffoldOptSelections,
-  }: { scaffoldOptSelections: DullaghanCli.Scaffold.CLIUserOptions[] } = await inquirer.prompt([
+  }: { scaffoldOptSelections: DullaghanCli.Scaffold.CliUserOptions[] } = await inquirer.prompt([
     {
       name: 'scaffoldOptSelections',
       type: 'checkbox',

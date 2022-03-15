@@ -36,7 +36,8 @@ export const mockData = ({ name, hasGetStaticProps, hasPlaceholder, }) => {
     }
     const rendering = !!renderingData
         ? `
-  rendering: {${renderingData}
+  rendering: {
+    componentName: '${name}',${renderingData}
   },
 `
         : '';

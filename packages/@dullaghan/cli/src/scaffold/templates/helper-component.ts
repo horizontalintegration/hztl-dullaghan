@@ -1,5 +1,7 @@
 export const helperComponent: DullaghanCli.Scaffold.Template = ({ name }) => {
-  return `export type ${name}Props = {}
+  return `export type ${name}Props = {
+
+}
 
 const ${name} = ({}: ${name}Props): JSX.Element => {
   return (

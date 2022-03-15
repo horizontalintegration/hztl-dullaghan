@@ -20,20 +20,17 @@ export const authorableComponent: DullaghanCli.Scaffold.Template = ({
   };
 
   // Different options want different parts of this lib
-  const placeholderPartials = ['Placeholder'];
   const staticPropsPartials = ['GetStaticComponentProps', 'useComponentProps'];
-  let allPartials: string[] = [];
-  if (hasPlaceholder) {
-    imports.components.push(
-      `import PlaceholderEmpty from '@/components/helpers/PlaceholderEmpty';`
-    );
-    allPartials = allPartials.concat(placeholderPartials);
-  }
+  let allPartials: string[] = ['ComponentFields'];
 
   if (hasGetStaticProps) {
-    imports.lib.push(`import GraphQLClientFactory from '@/lib/GraphQLClientFactory';`);
+    imports.lib.push(`import graphQLClientFactory from 'lib/graphql/client-factory';`);
     imports.lib.push(`import query from './${name}.graphql';`);
     allPartials = allPartials.concat(staticPropsPartials);
+  }
+
+  if (hasGetStaticProps || hasPlaceholder) {
+    allPartials.push('ComponentRendering');
   }
 
   if (allPartials.length > 0) {
@@ -41,17 +38,6 @@ export const authorableComponent: DullaghanCli.Scaffold.Template = ({
       `import { ${allPartials.join(', ')} } from '@sitecore-jss/sitecore-jss-nextjs';`
     );
   }
-
-  /**
-   * Static Props Type
-   */
-  const staticPropsType = hasGetStaticProps
-    ? `
-  interface ${name}StaticData {
-    datasource: {},
-  }
-  `
-    : '';
 
   /**
    * Static Props Data
@@ -62,74 +48,82 @@ export const authorableComponent: DullaghanCli.Scaffold.Template = ({
   `
     : '';
 
-  /**
-   * Placeholder Content
-   */
+  // Placeholder
+  if (hasPlaceholder) {
+    imports.components.push(
+      `import PlaceholderWrapper from 'components/helpers/PlaceholderWrapper/PlaceholderWrapper';`
+    );
+  }
+
   const placeholderContent = hasPlaceholder
-    ? `<Placeholder
-          rendering={rendering}
-          name="placeholder-name"
-          render={(components) => (
-            <>{components}</>
-          )}
-          renderEmpty={(components) => {components}}
-        />`
+    ? `<PlaceholderWrapper
+        rendering={rendering}
+        name="placeholder-name"
+        render={(components) => (
+          <>{components}</>
+        )}
+        renderEmpty={(components) => ({ components })}
+      />`
     : '';
 
-  const propsType = hasGetStaticProps
-    ? `export type ${name}Props = Sitecore.Override.ComponentBase & Components.${subdirectory.name}.Fields.${name};`
-    : `export type ${name}Props = Components.${subdirectory.name}.Fields.${name};`;
+  const componentInterface = `export interface ${name}Props {
+  fields?: ComponentFields;${
+    hasGetStaticProps || hasPlaceholder
+      ? `
+  rendering: ComponentRendering;`
+      : ''
+  }
+}
+`;
+
+  const staticPropsInterface = hasGetStaticProps
+    ? `export interface ${name}StaticData {
+  datasource: {}
+}
+`
+    : '';
 
   const jsxProps = hasGetStaticProps || hasPlaceholder ? 'fields, rendering' : 'fields';
 
   /**
    * Static Props Fetch
    */
-  // @TODO: This would need to generate a GQL file too, but that seems bad
-  // @TODO: Import our type from generated?
   const staticPropsFetch = hasGetStaticProps
     ? `
-  /* istanbul ignore next - We aren't running E2E tests. */
-  /**
-   * Will be called during SSG
-   * @param {ComponentRendering} rendering
-   * @param {LayoutServiceData} layoutData
-   * @param {GetStaticPropsContext} context
-   */
-  export const getStaticProps: GetStaticComponentProps = async (rendering, layoutData) => {
-    const graphQLClient = GraphQLClientFactory();
+/* istanbul ignore next - We aren't running E2E tests. */
+export const getStaticProps: GetStaticComponentProps = async (rendering, layoutData) => {
+  const graphQLClient = graphQLClientFactory();
   
-    const result = await graphQLClient.query({
-      query,
-      variables: {
-        datasource: rendering.dataSource,
-        contextItem: layoutData?.sitecore?.route?.itemId,
-      },
-    });
+  const result = await graphQLClient.query({
+    query,
+    variables: {
+      datasource: rendering.dataSource,
+      contextItem: layoutData?.sitecore?.route?.itemId,
+    },
+  });
   
-    return result.data;
-  };
-  `
+  return result.data;
+};
+`
     : '';
 
   /**
    * Template
    */
-  return `${getImportString(imports)}${propsType}
-  ${staticPropsType}
-  const ${name} = ({ ${jsxProps} }: ${name}Props): JSX.Element => {
-    // Fail out if we don't have any fields
-    if (!fields) { 
-      return <></>;
-    }
-    ${staticPropsData}
-    return (
-      <Container size="standard" dataComponent="${getDataComponentString(name, subdirectory)}">
-        ${placeholderContent || name}
-      </Container>
-    );
-  };
-  ${staticPropsFetch}
-  export default ${name};
-  `;
+  return `${getImportString(imports)}${componentInterface}${staticPropsInterface}
+const ${name} = ({ ${jsxProps} }: ${name}Props): JSX.Element => {
+  // Fail out if we don't have any fields
+  if (!fields) { 
+    return <></>;
+  }
+  ${staticPropsData}
+  return (
+    <div data-component="${getDataComponentString(name, subdirectory)}">
+      ${placeholderContent || name}
+    </div>
+  );
+};
+${staticPropsFetch}
+export default ${name};
+`;
 };
