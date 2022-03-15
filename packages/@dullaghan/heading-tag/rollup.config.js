@@ -1,4 +1,5 @@
 import { terser } from 'rollup-plugin-terser';
+import cleanup from 'rollup-plugin-cleanup';
 import commonjs from '@rollup/plugin-commonjs';
 import dts from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -15,6 +16,7 @@ export default [
         file: packageJson.main,
         format: 'cjs',
         sourcemap: true,
+        exports: 'auto',
       },
       {
         file: packageJson.module,
@@ -28,6 +30,7 @@ export default [
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
       terser(),
+      cleanup({ comments: 'none' }),
     ],
     external: ['react', 'react-dom'],
   },
