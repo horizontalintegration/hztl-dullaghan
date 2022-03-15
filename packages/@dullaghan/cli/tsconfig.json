@@ -12,5 +12,5 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["./src/create/templates/"]
+  "exclude": ["./src/create/templates/", "lib"]
 }
