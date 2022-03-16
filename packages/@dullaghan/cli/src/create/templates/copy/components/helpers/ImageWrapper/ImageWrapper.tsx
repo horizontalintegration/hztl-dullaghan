@@ -2,7 +2,7 @@
 import { Image as JSSImage, ImageField } from '@sitecore-jss/sitecore-jss-nextjs';
 import NextImage from 'next/image';
 // Lib
-import isExperienceEditor from 'lib/sitecore/is-experience-editor';
+import useExperienceEditor from 'lib/sitecore/use-experience-editor';
 
 /**
  * JSS does not yet support Next Image in Exprience Editor
@@ -15,7 +15,9 @@ import isExperienceEditor from 'lib/sitecore/is-experience-editor';
 
 interface SizedImageField extends ImageField {
   value?: {
+    alt?: string;
     height: string;
+    src?: string;
     width: string;
   };
 }
@@ -43,14 +45,14 @@ const ImageWrapper = ({
   layout = 'intrinsic',
   priority,
 }: ImageWrapperProps): JSX.Element => {
-  const isEE = isExperienceEditor();
+  const isEE = useExperienceEditor();
 
   if (isEE) {
     return <JSSImage field={image} />;
   }
 
   // If the image has no value, return nothing
-  if (!image.value) {
+  if (!image.value || !image.value.src) {
     return <></>;
   }
 

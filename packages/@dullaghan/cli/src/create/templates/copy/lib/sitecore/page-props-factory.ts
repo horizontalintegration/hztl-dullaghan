@@ -115,7 +115,6 @@ export class SitecorePagePropsFactory {
         .fetchLayoutData(
           path,
           locale,
-          // eslint-disable-next-line prettier/prettier
           isServerSidePropsContext(context)
             ? (context as GetServerSidePropsContext).req
             : undefined,

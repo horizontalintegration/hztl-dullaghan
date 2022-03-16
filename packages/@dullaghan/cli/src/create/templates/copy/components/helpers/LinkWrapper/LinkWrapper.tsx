@@ -2,7 +2,7 @@
 import type { LinkProps } from '@sitecore-jss/sitecore-jss-react';
 import { Link, LinkField } from '@sitecore-jss/sitecore-jss-nextjs';
 // Lib
-import isExperienceEditor from 'lib/sitecore/is-experience-editor';
+import useExperienceEditor from 'lib/sitecore/use-experience-editor';
 // Components
 import SvgIcon from 'components/helpers/SvgIcon/SvgIcon';
 
@@ -32,7 +32,7 @@ const LinkWrapper = ({
   const text = suppressLinkText ? '' : asLinkField?.value?.text;
   const target = asLinkField?.value?.target;
 
-  const isEE = isExperienceEditor();
+  const isEE = useExperienceEditor();
 
   // In experience editor, do not pass any children but retain basic styling
   // so that double components do not appear when using <Link>

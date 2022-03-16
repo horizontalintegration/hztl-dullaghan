@@ -76,7 +76,6 @@ function getComponentList(path: string): ComponentFile[] {
     }
 
     if (fileFormat.test(item.name)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const name = item.name.match(fileFormat)![1];
       console.debug(`Registering JSS component ${name}`);
       components.push({

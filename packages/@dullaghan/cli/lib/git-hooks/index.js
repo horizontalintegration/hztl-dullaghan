@@ -39,12 +39,16 @@ export const gitHooks = async () => {
     // Add package commands
     const packageJson = JSON.parse(fs.readFileSync(PACKAGE_PATH, { encoding: 'utf-8' }));
     packageJson.scripts.prepare = 'husky install';
-    packageJson.scripts['pre-commit'] = packageJson.scripts.hasOwnProperty('lint')
-        ? 'npm run lint'
-        : 'echo error no pre-commit specified && exit 1';
-    packageJson.scripts['pre-push'] = packageJson.scripts.hasOwnProperty('test')
-        ? 'npm run test'
-        : 'echo error no pre-push specified && exit 1';
+    if (!packageJson.scripts.hasOwnProperty('pre-commit')) {
+        packageJson.scripts['pre-commit'] = packageJson.scripts.hasOwnProperty('lint')
+            ? 'npm run lint'
+            : 'echo error no pre-commit specified && exit 1';
+    }
+    if (!packageJson.scripts.hasOwnProperty('pre-push')) {
+        packageJson.scripts['pre-push'] = packageJson.scripts.hasOwnProperty('test')
+            ? 'npm run test'
+            : 'echo error no pre-push specified && exit 1';
+    }
     fs.writeFileSync(PACKAGE_PATH, JSON.stringify(packageJson));
     // Install package dependencies
     console.log(`

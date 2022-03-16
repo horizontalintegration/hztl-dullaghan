@@ -1,0 +1,5 @@
+{
+  "*.ts?(x)": ["prettier -w --config .prettierrc", "eslint"],
+  "*.js?(x)": ["prettier -w --config .prettierrc", "eslint"],
+  "*.css": ["prettier -w --config .prettierrc", "stylelint"]
+}

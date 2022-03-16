@@ -2,7 +2,7 @@
 import { Placeholder } from '@sitecore-jss/sitecore-jss-nextjs';
 import { PlaceholderComponentProps } from '@sitecore-jss/sitecore-jss-react/types/components/Placeholder';
 // Lib
-import isExperienceEditor from 'lib/sitecore/is-experience-editor';
+import useExperienceEditor from 'lib/sitecore/use-experience-editor';
 
 /**
  * Adds a visual area for authors to click when placeholder is empty
@@ -10,7 +10,7 @@ import isExperienceEditor from 'lib/sitecore/is-experience-editor';
  */
 
 const PlaceholderWrapper = ({ name, ...props }: PlaceholderComponentProps): JSX.Element => {
-  const isEE = isExperienceEditor();
+  const isEE = useExperienceEditor();
 
   if (isEE) {
     return (

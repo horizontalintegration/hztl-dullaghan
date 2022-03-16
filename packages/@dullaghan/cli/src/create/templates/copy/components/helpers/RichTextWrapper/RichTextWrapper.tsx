@@ -1,11 +1,11 @@
 // Global
 import { RichTextProps } from '@sitecore-jss/sitecore-jss-react';
-import { Field, RichText } from '@sitecore-jss/sitecore-jss-nextjs';
+import { RichText } from '@sitecore-jss/sitecore-jss-nextjs';
 // Lib
-import isExperienceEditor from 'lib/sitecore/is-experience-editor';
+import useExperienceEditor from 'lib/sitecore/use-experience-editor';
 
 const RichTextWrapper = ({ field, ...props }: RichTextProps): JSX.Element => {
-  const isEE = isExperienceEditor();
+  const isEE = useExperienceEditor();
 
   // Just pass as normal if in Experience Editor
   if (isEE) {
