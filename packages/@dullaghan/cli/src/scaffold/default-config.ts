@@ -6,6 +6,7 @@ import { mockData } from './templates/mock-data.js';
 import { storybook } from './templates/storybook.js';
 
 export const scaffoldConfig: DullaghanConfig = {
+  projectType: 'JSS',
   scaffold: {
     subdirectories: [
       {

@@ -70,6 +70,7 @@ declare namespace DullaghanCli {
  */
 
 interface DullaghanConfig {
+  projectType: 'JSS' | 'React';
   scaffold?: {
     subdirectories: DullaghanCli.Scaffold.Subdirectory[];
     templates?: DullaghanCli.Scaffold.TemplateDictionary;

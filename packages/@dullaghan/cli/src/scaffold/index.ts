@@ -8,7 +8,7 @@ import { resolve } from 'path';
 import { getConfig } from '../utils/get-config.js';
 
 export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliArgs) => {
-  const config = getConfig(options.config || process.cwd());
+  const config = await getConfig(options.config || process.cwd());
 
   if (!config.scaffold) {
     console.log(
@@ -20,50 +20,40 @@ export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliA
   }
 
   // Get the related subdirectory config
-  const { subdirectoryName } = await inquirer.prompt([
-    {
-      name: 'subdirectoryName',
-      type: 'list',
-      message: 'Select the subdirectory for your component:',
-      choices: config.scaffold?.subdirectories || [],
-      pageSize: 10,
-    },
-  ]);
+  let subdirectory = config.scaffold.subdirectories[0];
 
-  const subdirectory = config.scaffold.subdirectories.find((s) => s.name === subdirectoryName);
+  // Ask for subdirectory if more than one is configured
+  if (config.scaffold.subdirectories.length > 1) {
+    const { subdirectoryName } = await inquirer.prompt([
+      {
+        name: 'subdirectoryName',
+        type: 'list',
+        message: 'Select the subdirectory for your component:',
+        choices: config.scaffold?.subdirectories || [],
+        pageSize: 10,
+      },
+    ]);
 
-  if (!subdirectory) {
-    console.log(
-      `The subdirectory: ${chalk.yellow(
-        subdirectoryName
-      )} was not found in the config. Do you need to add it to the ${chalk.cyan(
-        'dullaghan.config'
-      )} file?`
+    const selectedSubdirectory = config.scaffold.subdirectories.find(
+      (s) => s.name === subdirectoryName
     );
-    // TODO: Add link to README on repo for the config
-    exit(1);
+
+    if (!selectedSubdirectory) {
+      console.log(
+        `The subdirectory: ${chalk.yellow(
+          subdirectoryName
+        )} was not found in the supplied config. Do you need to add it's name property to the ${chalk.cyan(
+          'dullaghan.config.mjs'
+        )} file?`
+      );
+      // TODO: Add link to README on repo for the config
+      exit(1);
+    }
+
+    subdirectory = selectedSubdirectory;
   }
 
   const COMPONENT_DIRECTORY_PATH = resolve(subdirectory.path, name);
-
-  // Get the scaffold options
-  const {
-    scaffoldOptSelections,
-  }: { scaffoldOptSelections: DullaghanCli.Scaffold.CliUserOptions[] } = await inquirer.prompt([
-    {
-      name: 'scaffoldOptSelections',
-      type: 'checkbox',
-      message: 'Select any customizations needed for your component:',
-      choices: [
-        { name: 'Contains a Placeholder component', value: 'hasPlaceholder' },
-        {
-          name: 'Uses data from getStaticProps (connected GraphQL or other server-side API calls)',
-          value: 'hasGetStaticProps',
-        },
-        { name: 'Contains a next/dynamic import', value: 'hasNextDynamic' },
-      ],
-    },
-  ]);
 
   // Build scaffold template args
   const scaffoldTemplateArgs: DullaghanCli.Scaffold.TemplateArgs = {
@@ -74,9 +64,30 @@ export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliA
     hasPlaceholder: false,
   };
 
-  scaffoldOptSelections.forEach((key) => {
-    scaffoldTemplateArgs[key] = true;
-  });
+  // Get the scaffold options for JSS projects
+  if (config.projectType === 'JSS') {
+    const {
+      scaffoldOptSelections,
+    }: { scaffoldOptSelections: DullaghanCli.Scaffold.CliUserOptions[] } = await inquirer.prompt([
+      {
+        name: 'scaffoldOptSelections',
+        type: 'checkbox',
+        message: 'Select any customizations needed for your component:',
+        choices: [
+          { name: 'Contains a Placeholder component', value: 'hasPlaceholder' },
+          {
+            name: 'Uses data from getStaticProps (connected GraphQL or other server-side API calls)',
+            value: 'hasGetStaticProps',
+          },
+          { name: 'Contains a next/dynamic import', value: 'hasNextDynamic' },
+        ],
+      },
+    ]);
+
+    scaffoldOptSelections.forEach((key) => {
+      scaffoldTemplateArgs[key] = true;
+    });
+  }
 
   // Create the base directory
   console.log(COMPONENT_DIRECTORY_PATH);

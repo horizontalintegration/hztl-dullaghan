@@ -5,6 +5,7 @@ import { jest } from './templates/jest.js';
 import { mockData } from './templates/mock-data.js';
 import { storybook } from './templates/storybook.js';
 export const scaffoldConfig = {
+    projectType: 'JSS',
     scaffold: {
         subdirectories: [
             {
