@@ -1,7 +1,9 @@
 {
   "npmClient": "npm",
-  "version": "0.4.0",
-  "packages": ["packages/@dullaghan/*"],
+  "version": "0.4.1",
+  "packages": [
+    "packages/@dullaghan/*"
+  ],
   "changelog": {
     "repo": "horizontalintegration/hztl-dullaghan",
     "labels": {
