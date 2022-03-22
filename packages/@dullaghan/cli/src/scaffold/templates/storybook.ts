@@ -2,7 +2,7 @@
 import { getImportString } from '../get-import-string.js';
 import { MOCK_DATA_DEFAULT, MOCK_DATA_STATIC_PROPS } from '../constants.js';
 
-export const storybook: DullaghanCli.Scaffold.Template = ({
+export const storybook: DullaghanCli.Scaffold.JSSTemplate = ({
   name,
   subdirectory,
   hasGetStaticProps,

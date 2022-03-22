@@ -11,3 +11,8 @@ test
 
 # debug
 lerna-debug.log
+
+# .env
+.env
+
+.changelog

@@ -8,12 +8,20 @@ import { resolve } from 'path';
 import { getConfig } from '../utils/get-config.js';
 
 export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliArgs) => {
+  if (!/^[A-Z][A-Za-z]+/g.test(name)) {
+    console.log(`${chalk.yellow(
+      'Your component name must be pascal case and contain only letters.'
+    )}
+${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
+    exit(1);
+  }
+
   const config = await getConfig(options.config || process.cwd());
 
   if (!config.scaffold) {
     console.log(
       chalk.red(
-        'The scaffold config is invalid. Please remove the scaffold key from your custom config.'
+        'The provided scaffold config is invalid. Please remove the scaffold key from your custom config or replace it with a valid scaffold config.'
       )
     );
     exit(1);
@@ -56,7 +64,7 @@ export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliA
   const COMPONENT_DIRECTORY_PATH = resolve(subdirectory.path, name);
 
   // Build scaffold template args
-  const scaffoldTemplateArgs: DullaghanCli.Scaffold.TemplateArgs = {
+  const scaffoldTemplateArgs: DullaghanCli.Scaffold.JSSTemplateArgs = {
     name,
     subdirectory,
     hasGetStaticProps: false,
@@ -111,19 +119,31 @@ export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliA
     exit(1);
   }
 
-  // TODO: Detect which files already exist here, ask about deleting them as a checkbox
-
-  await Promise.all(
-    Object.entries(filesToCreate).map(([key, val]) => {
-      const filePath = resolve(COMPONENT_DIRECTORY_PATH, key.replace(/(\[name\])/g, name));
-      const fileContents = val(scaffoldTemplateArgs);
-      return fs.writeFile(filePath, fileContents, (err) => {
-        if (err) {
-          console.error(err);
-        }
+  const writeTemplateFile = async (
+    name: string,
+    template: DullaghanCli.Scaffold.Template | DullaghanCli.Scaffold.JSSTemplate
+  ) => {
+    const filePath = resolve(COMPONENT_DIRECTORY_PATH, name.replace(/(\[name\])/g, name));
+    if (fs.existsSync(filePath)) {
+      const { overwriteFile } = await inquirer.prompt({
+        name: 'overwriteFile',
+        type: 'confirm',
+        message: `The file ${filePath} already exists. Would you like to overwrite it?`,
       });
-    })
-  );
+
+      if (!overwriteFile) {
+        return Promise.resolve();
+      }
+    }
+    const fileContents = template(scaffoldTemplateArgs);
+    return fs.writeFile(filePath, fileContents, (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  };
+
+  await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
 
   console.log(`
 ${chalk.green(name)} has been created.

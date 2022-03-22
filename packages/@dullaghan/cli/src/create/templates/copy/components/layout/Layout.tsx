@@ -1,7 +1,12 @@
 // Global
+import { SitecoreContext, useSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
 import Head from 'next/head';
+// Lib
+import { ExtendedSitecoreContext } from 'lib/sitecore/sitecore-context';
 
 const Layout = (): JSX.Element => {
+  const route = useSitecoreContext<ExtendedSitecoreContext>().sitecoreContext.route;
+
   return (
     <>
       <Head>
