@@ -2,7 +2,7 @@
 import { getImportString } from '../get-import-string.js';
 import { getDataComponentString } from '../get-data-component-string.js';
 
-export const authorableComponent: DullaghanCli.Scaffold.Template = ({
+export const authorableComponent: DullaghanCli.Scaffold.JSSTemplate = ({
   name,
   subdirectory,
   hasPlaceholder,

@@ -65,7 +65,7 @@ const SamplePlaceholderComponent = (): JSX.Element => (
  * @param {React.FC} args additional React components to add to the factory
  * @returns {ComponentFactory} a method that accepts a string and returns a matching component or null
  */
-const createComponentFactory =
+export const createComponentFactory =
   (...args: React.FC[]): ComponentFactory =>
   (componentName: string): React.FC | null => {
     const components = new Map<string, React.FC>();
@@ -78,5 +78,3 @@ const createComponentFactory =
 
     return components.get(componentName) || null;
   };
-
-export default createComponentFactory;

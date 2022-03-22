@@ -2,7 +2,7 @@
 import { kebabCase } from '../../utils/string-utils.js';
 import { getImportString } from '../get-import-string.js';
 
-export const mockData: DullaghanCli.Scaffold.Template = ({
+export const mockData: DullaghanCli.Scaffold.JSSTemplate = ({
   name,
   hasGetStaticProps,
   hasPlaceholder,

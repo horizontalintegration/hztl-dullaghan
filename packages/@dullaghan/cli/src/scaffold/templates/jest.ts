@@ -3,7 +3,7 @@ import { getImportString } from '../get-import-string.js';
 import { getDataComponentString } from '../get-data-component-string.js';
 import { MOCK_DATA_DEFAULT, MOCK_DATA_STATIC_PROPS } from '../constants.js';
 
-export const jest: DullaghanCli.Scaffold.Template = ({
+export const jest: DullaghanCli.Scaffold.JSSTemplate = ({
   hasGetStaticProps,
   hasNextDynamic,
   name,

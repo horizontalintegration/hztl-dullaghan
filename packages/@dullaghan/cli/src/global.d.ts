@@ -34,7 +34,7 @@ declare namespace DullaghanCli {
 
     type CliUserOptions = 'hasPlaceholder' | 'hasGetStaticProps' | 'hasNextDynamic';
 
-    type TemplateDictionary = Record<`[name].${string}`, Template>;
+    type TemplateDictionary = Record<`[name].${string}`, Template | JSSTemplate>;
 
     interface Subdirectory {
       path: string;
@@ -47,12 +47,17 @@ declare namespace DullaghanCli {
     interface TemplateArgs {
       name: string;
       subdirectory: Subdirectory;
+    }
+
+    type Template = (args: TemplateArgs) => string;
+
+    interface JSSTemplateArgs extends TemplateArgs {
       hasGetStaticProps: boolean;
       hasNextDynamic: boolean;
       hasPlaceholder: boolean;
     }
 
-    type Template = (args: TemplateArgs) => string;
+    type JSSTemplate = (args: JSSTemplateArgs) => string;
 
     type ImportCategories = 'global' | 'test' | 'lib' | 'components' | 'local';
   }
