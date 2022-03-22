@@ -1,7 +1,8 @@
 import React from 'react';
+export declare type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 interface HeadingTagProps {
     children: React.ReactNode | React.ReactNode[];
-    level: 1 | 2 | 3 | 4 | 5 | 6;
+    level: HeadingLevel;
     offset?: number;
     [name: string]: unknown;
 }
