@@ -1,1 +1,1 @@
-export declare const mockData: DullaghanCli.Scaffold.Template;
+export declare const mockData: DullaghanCli.Scaffold.JSSTemplate;

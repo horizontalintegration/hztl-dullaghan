@@ -7,9 +7,14 @@ import { resolve } from 'path';
 // Utils
 import { getConfig } from '../utils/get-config.js';
 export const scaffold = async (name, options) => {
+    if (!/^[A-Z][A-Za-z]+/g.test(name)) {
+        console.log(`${chalk.yellow('Your component name must be pascal case and contain only letters.')}
+${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
+        exit(1);
+    }
     const config = await getConfig(options.config || process.cwd());
     if (!config.scaffold) {
-        console.log(chalk.red('The scaffold config is invalid. Please remove the scaffold key from your custom config.'));
+        console.log(chalk.red('The provided scaffold config is invalid. Please remove the scaffold key from your custom config or replace it with a valid scaffold config.'));
         exit(1);
     }
     // Get the related subdirectory config
@@ -78,16 +83,33 @@ export const scaffold = async (name, options) => {
         console.log(chalk.red(`ERROR: No template files have been configured to be created for subdirectory: ${subdirectory.name}.`));
         exit(1);
     }
-    // TODO: Detect which files already exist here, ask about deleting them as a checkbox
-    await Promise.all(Object.entries(filesToCreate).map(([key, val]) => {
-        const filePath = resolve(COMPONENT_DIRECTORY_PATH, key.replace(/(\[name\])/g, name));
-        const fileContents = val(scaffoldTemplateArgs);
+    const writeTemplateFile = async (templateName, template) => {
+        const fileName = templateName.replace(/(\[name\])/g, name);
+        const filePath = resolve(COMPONENT_DIRECTORY_PATH, fileName);
+        if (fs.existsSync(filePath)) {
+            const { overwriteFile } = await inquirer.prompt({
+                name: 'overwriteFile',
+                type: 'confirm',
+                message: `The file ${chalk.yellow(fileName)} already exists. Would you like to overwrite it?`,
+            });
+            if (!overwriteFile) {
+                return Promise.resolve();
+            }
+        }
+        const fileContents = template(scaffoldTemplateArgs);
         return fs.writeFile(filePath, fileContents, (err) => {
             if (err) {
                 console.error(err);
             }
         });
-    }));
+    };
+    const files = Object.entries(filesToCreate);
+    await files.reduce((prev, curr) => {
+        return prev.then(() => {
+            return writeTemplateFile(curr[0], curr[1]);
+        });
+    }, Promise.resolve());
+    // await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
     console.log(`
 ${chalk.green(name)} has been created.
 `);

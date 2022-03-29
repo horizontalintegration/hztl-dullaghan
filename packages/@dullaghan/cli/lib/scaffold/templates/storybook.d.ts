@@ -1,1 +1,1 @@
-export declare const storybook: DullaghanCli.Scaffold.Template;
+export declare const storybook: DullaghanCli.Scaffold.JSSTemplate;

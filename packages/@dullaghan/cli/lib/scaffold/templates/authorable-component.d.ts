@@ -1,1 +1,1 @@
-export declare const authorableComponent: DullaghanCli.Scaffold.Template;
+export declare const authorableComponent: DullaghanCli.Scaffold.JSSTemplate;

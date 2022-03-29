@@ -9,7 +9,7 @@ import { sitecorePagePropsFactory } from 'lib/sitecore/page-props-factory';
 // Config
 import { componentFactory } from 'temp/component-factory';
 // Components
-import Layout from 'components/layout/Layout';
+import PageLayout from 'components/layout/PageLayout';
 import NotFound from 'components/layout/NotFound';
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
@@ -60,7 +60,7 @@ const SitecorePage: NextPage<SitecorePageProps> = ({ componentProps, layoutData,
   return (
     <ComponentPropsContext value={componentProps}>
       <SitecoreContext context={context} componentFactory={componentFactory}>
-        <Layout />
+        <PageLayout />
       </SitecoreContext>
     </ComponentPropsContext>
   );

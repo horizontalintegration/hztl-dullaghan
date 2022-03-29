@@ -4,7 +4,7 @@ import Head from 'next/head';
 // Lib
 import { ExtendedSitecoreContext } from 'lib/sitecore/sitecore-context';
 
-const Layout = (): JSX.Element => {
+const PageLayout = (): JSX.Element => {
   const route = useSitecoreContext<ExtendedSitecoreContext>().sitecoreContext.route;
 
   return (
@@ -21,4 +21,4 @@ const Layout = (): JSX.Element => {
   );
 };
 
-export default Layout;
+export default PageLayout;

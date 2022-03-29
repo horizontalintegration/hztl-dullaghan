@@ -1,1 +1,1 @@
-export declare const jest: DullaghanCli.Scaffold.Template;
+export declare const jest: DullaghanCli.Scaffold.JSSTemplate;

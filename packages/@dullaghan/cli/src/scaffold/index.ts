@@ -120,15 +120,18 @@ ${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
   }
 
   const writeTemplateFile = async (
-    name: string,
+    templateName: string,
     template: DullaghanCli.Scaffold.Template | DullaghanCli.Scaffold.JSSTemplate
   ) => {
-    const filePath = resolve(COMPONENT_DIRECTORY_PATH, name.replace(/(\[name\])/g, name));
+    const fileName = templateName.replace(/(\[name\])/g, name);
+    const filePath = resolve(COMPONENT_DIRECTORY_PATH, fileName);
     if (fs.existsSync(filePath)) {
       const { overwriteFile } = await inquirer.prompt({
         name: 'overwriteFile',
         type: 'confirm',
-        message: `The file ${filePath} already exists. Would you like to overwrite it?`,
+        message: `The file ${chalk.yellow(
+          fileName
+        )} already exists. Would you like to overwrite it?`,
       });
 
       if (!overwriteFile) {
@@ -143,7 +146,15 @@ ${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
     });
   };
 
-  await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
+  const files = Object.entries(filesToCreate);
+
+  await files.reduce((prev, curr) => {
+    return prev.then(() => {
+      return writeTemplateFile(curr[0], curr[1]);
+    });
+  }, Promise.resolve());
+
+  // await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
 
   console.log(`
 ${chalk.green(name)} has been created.
