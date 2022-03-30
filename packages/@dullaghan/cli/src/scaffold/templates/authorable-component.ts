@@ -21,7 +21,7 @@ export const authorableComponent: DullaghanCli.Scaffold.JSSTemplate = ({
 
   // Different options want different parts of this lib
   const staticPropsPartials = ['GetStaticComponentProps', 'useComponentProps'];
-  let allPartials: string[] = ['ComponentFields'];
+  let allPartials: string[] = [];
 
   if (hasGetStaticProps) {
     imports.lib.push(`import graphQLClientFactory from 'lib/graphql/client-factory';`);
@@ -67,7 +67,7 @@ export const authorableComponent: DullaghanCli.Scaffold.JSSTemplate = ({
     : '';
 
   const componentInterface = `export interface ${name}Props {
-  fields?: ComponentFields;${
+  fields?: {};${
     hasGetStaticProps || hasPlaceholder
       ? `
   rendering: ComponentRendering;`
