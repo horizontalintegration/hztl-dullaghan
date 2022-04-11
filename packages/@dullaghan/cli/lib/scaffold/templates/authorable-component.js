@@ -14,7 +14,7 @@ export const authorableComponent = ({ name, subdirectory, hasPlaceholder, hasGet
     };
     // Different options want different parts of this lib
     const staticPropsPartials = ['GetStaticComponentProps', 'useComponentProps'];
-    let allPartials = ['ComponentFields'];
+    let allPartials = [];
     if (hasGetStaticProps) {
         imports.lib.push(`import graphQLClientFactory from 'lib/graphql/client-factory';`);
         imports.lib.push(`import query from './${name}.graphql';`);
@@ -49,7 +49,7 @@ export const authorableComponent = ({ name, subdirectory, hasPlaceholder, hasGet
       />`
         : '';
     const componentInterface = `export interface ${name}Props {
-  fields?: ComponentFields;${hasGetStaticProps || hasPlaceholder
+  fields?: {};${hasGetStaticProps || hasPlaceholder
         ? `
   rendering: ComponentRendering;`
         : ''}

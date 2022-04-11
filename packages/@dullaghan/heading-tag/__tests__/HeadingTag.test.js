@@ -2,7 +2,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 // Local
-import HeadingTag from '../src/index';
+import HeadingTag from '../lib/index';
 
 const checkHeading = (props, expectedTag) => {
   const component = render(<HeadingTag {...props}>Foo</HeadingTag>);

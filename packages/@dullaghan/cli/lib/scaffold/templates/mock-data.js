@@ -27,17 +27,17 @@ export const mockData = ({ name, hasGetStaticProps, hasPlaceholder, }) => {
      */
     let renderingData = '';
     if (hasGetStaticProps) {
-        renderingData += `
-    uid: UID,`;
+        renderingData += `uid: UID,
+`;
     }
     if (hasPlaceholder) {
-        renderingData += `
-    ...getSampleRenderingContext('placeholder-name'),`;
+        renderingData += `...getSampleRenderingContext('placeholder-name'),
+`;
     }
     const rendering = !!renderingData
         ? `
   rendering: {
-    componentName: '${name}',${renderingData}
+    ${renderingData}componentName: '${name}',
   },
 `
         : '';

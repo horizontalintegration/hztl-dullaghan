@@ -1,5 +1,5 @@
 export const storybookPackageConfig: DullaghanCli.Create.ModulePackageConfig = {
-  scripts: [['storybook', 'start-storybook -s public -p 3000']],
+  scripts: [['storybook', 'start-storybook -p 3000']],
   devDependencies: [
     ['@storybook/addon-actions', '^6.5.0-alpha.50'],
     ['@storybook/addon-essentials', '^6.5.0-alpha.50'],

@@ -40,15 +40,15 @@ export const storybook = ({ name, subdirectory, hasGetStaticProps, hasPlaceholde
         }
         const staticPropsDecorator = hasGetStaticProps
             ? `
-      (Story) => <ComponentPropsContext value={staticPropsData}>{Story()}</ComponentPropsContext>,`
+    (Story) => <ComponentPropsContext value={staticPropsData}>{Story()}</ComponentPropsContext>,`
             : '';
         const placeholderDecorator = hasPlaceholder
             ? `
-      (Story) => <SitecoreContext componentFactory={componentFactory}>{Story()}</SitecoreContext>,`
+    (Story) => <SitecoreContext componentFactory={componentFactory}>{Story()}</SitecoreContext>,`
             : '';
         return `
-    decorators: [${staticPropsDecorator}${placeholderDecorator}
-    ],`;
+  decorators: [${staticPropsDecorator}${placeholderDecorator}
+  ],`;
     };
     /**
      * Output
