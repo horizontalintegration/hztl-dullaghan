@@ -1,13 +1,17 @@
 // Global
+import { exit } from 'process';
+import { resolve } from 'path';
 import * as fs from 'fs';
-import * as path from 'path';
-// Local
-import { defaultConfig } from './default-config.js';
+import { getAbsoluteFilePath } from './get-absolute-file-path.js';
 
 export const getConfig = async (configPath = ''): Promise<DullaghanConfig> => {
-  const configFile = path.resolve(configPath, 'dullaghan.config.mjs');
-  const customConfig = fs.existsSync(configFile) ? await import(configFile) : { config: {} };
+  const configFile = resolve(configPath, 'dullaghan.config.mjs');
 
-  // TODO: Smarter merging
-  return { ...defaultConfig, ...customConfig.config };
+  if (!fs.existsSync(configFile)) {
+    // TODO: Create a config file
+    exit(1);
+  }
+
+  const data: { config: DullaghanConfig } = await import(getAbsoluteFilePath(configFile));
+  return data.config;
 };
