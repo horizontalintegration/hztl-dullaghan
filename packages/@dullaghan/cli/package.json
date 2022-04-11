@@ -1,6 +1,6 @@
 {
   "name": "@dullaghan/cli",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Command line tools for headless development",
   "type": "module",
   "keywords": [
