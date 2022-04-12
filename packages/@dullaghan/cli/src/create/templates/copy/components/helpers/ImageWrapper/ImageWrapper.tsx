@@ -35,30 +35,30 @@ interface AnyNextImage {
 }
 
 interface ImageWrapperProps {
-  image: SizedImageField;
+  field: SizedImageField;
   layout?: NextImageLayoutOption;
   priority?: boolean;
 }
 
 const ImageWrapper = ({
-  image,
+  field,
   layout = 'intrinsic',
   priority,
 }: ImageWrapperProps): JSX.Element => {
   const isEE = useExperienceEditor();
 
   if (isEE) {
-    return <JSSImage field={image} />;
+    return <JSSImage field={field} />;
   }
 
   // If the image has no value, return nothing
-  if (!image.value || !image.value.src) {
+  if (!field.value || !field.value.src) {
     return <></>;
   }
 
   const nextImageProps: AnyNextImage = {
-    src: image.value.src,
-    alt: image.value.alt || '',
+    src: field.value.src,
+    alt: field.value.alt || '',
     layout,
     priority,
   };
@@ -66,8 +66,8 @@ const ImageWrapper = ({
   if (layout === 'fill') {
     nextImageProps.objectFit = 'cover';
   } else {
-    nextImageProps.height = image.value.height;
-    nextImageProps.width = image.value.width;
+    nextImageProps.height = field.value.height;
+    nextImageProps.width = field.value.width;
   }
 
   return <NextImage {...nextImageProps} />;

@@ -1,6 +1,5 @@
 import React from 'react';
-
-declare type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+export declare type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 interface HeadingTagProps {
     children: React.ReactNode | React.ReactNode[];
     level: HeadingLevel;
@@ -8,5 +7,4 @@ interface HeadingTagProps {
     [name: string]: unknown;
 }
 declare const HeadingTag: ({ level, offset, children, ...props }: HeadingTagProps) => JSX.Element;
-
-export { HeadingLevel, HeadingTag as default };
+export default HeadingTag;

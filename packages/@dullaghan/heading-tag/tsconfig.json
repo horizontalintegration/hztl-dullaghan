@@ -7,13 +7,14 @@
     "module": "ESNext",  
     "declaration": true,
     "sourceMap": true,
+    "outDir": "",
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
   },
   "exclude": [
-    "node_modules",
-    "__tests__"
+    "lib",
+    "node_modules"
   ],
 }
