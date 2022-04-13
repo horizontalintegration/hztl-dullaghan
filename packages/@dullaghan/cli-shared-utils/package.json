@@ -1,0 +1,36 @@
+{
+  "name": "@dullaghan/cli-shared-utils",
+  "version": "0.4.7",
+  "description": "> TODO: description",
+  "contributors": [
+    "Brian George <bgeorge@horizontal.com>"
+  ],
+  "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli-shared-utils#readme",
+  "main": "lib/cli-shared-utils.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horizontalintegration/hztl-dullaghan.git"
+  },
+  "scripts": {
+    "build": "rm -rf ./lib && tsc --project tsconfig.json",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}
