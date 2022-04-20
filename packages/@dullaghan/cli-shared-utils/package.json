@@ -1,6 +1,6 @@
 {
   "name": "@dullaghan/cli-shared-utils",
-  "version": "0.5.0-alpha.0",
+  "version": "0.5.0-alpha.1",
   "description": "Shared utilities for various Dullaghan CLI packages",
   "contributors": [
     "Brian George <bgeorge@horizontal.com>"
