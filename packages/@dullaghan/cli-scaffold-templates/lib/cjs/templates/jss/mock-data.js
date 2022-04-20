@@ -5,7 +5,9 @@ exports.jssMockDataTemplate = void 0;
 const cli_shared_utils_1 = require("@dullaghan/cli-shared-utils");
 // Utils
 const get_import_string_js_1 = require("../../utils/get-import-string.js");
-const jssMockDataTemplate = ({ name, hasGetStaticProps, hasPlaceholder, }) => {
+const has_choice_js_1 = require("../../utils/has-choice.js");
+const jssMockDataTemplate = ({ name, jssOpts, }) => {
+    const { hasGetStaticProps, hasPlaceholder } = (0, has_choice_js_1.hasChoice)(['hasGetStaticProps', 'hasPlaceholder'], jssOpts);
     /**
      * Imports
      */

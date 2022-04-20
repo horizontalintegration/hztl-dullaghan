@@ -1,8 +1,10 @@
 // Utils
-import { getImportString } from '../../utils/get-import-string.js';
-import { getDataComponentString } from '../../utils/get-data-component-string.js';
 import { MOCK_DATA_DEFAULT, MOCK_DATA_STATIC_PROPS } from '../../utils/constants.js';
-export const jssJestTemplate = ({ hasGetStaticProps, hasNextDynamic, name, subdirectory, }) => {
+import { getDataComponentString } from '../../utils/get-data-component-string.js';
+import { getImportString } from '../../utils/get-import-string.js';
+import { hasChoice } from '../../utils/has-choice.js';
+export const jssJestTemplate = ({ jssOpts, name, subdirectory, }) => {
+    const { hasGetStaticProps, hasNextDynamic } = hasChoice(['hasGetStaticProps', 'hasNextDynamic'], jssOpts);
     /**
      * Imports
      */

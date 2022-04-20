@@ -2,7 +2,9 @@
 import { kebabCase } from '@dullaghan/cli-shared-utils';
 // Utils
 import { getImportString } from '../../utils/get-import-string.js';
-export const jssMockDataTemplate = ({ name, hasGetStaticProps, hasPlaceholder, }) => {
+import { hasChoice } from '../../utils/has-choice.js';
+export const jssMockDataTemplate = ({ name, jssOpts, }) => {
+    const { hasGetStaticProps, hasPlaceholder } = hasChoice(['hasGetStaticProps', 'hasPlaceholder'], jssOpts);
     /**
      * Imports
      */

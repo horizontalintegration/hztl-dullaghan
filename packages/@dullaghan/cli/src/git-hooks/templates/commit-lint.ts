@@ -1,3 +1,5 @@
+import { DullaghanCli } from '@dullaghan/cli-shared-utils';
+
 export const commitLint: DullaghanCli.CommitHooks.Template = (name) => `module.exports = {
   plugins: ['commitlint-plugin-jira-rules'],
   extends: ['jira'],

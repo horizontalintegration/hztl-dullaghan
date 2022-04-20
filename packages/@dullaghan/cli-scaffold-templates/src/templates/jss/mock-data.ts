@@ -2,14 +2,18 @@
 import { DullaghanCli, kebabCase } from '@dullaghan/cli-shared-utils';
 // Utils
 import { getImportString } from '../../utils/get-import-string.js';
+import { hasChoice } from '../../utils/has-choice.js';
 // Local
-import { JSSTemplateArgs } from './jss-template.js';
+import { JSSOpt, JSSTemplateArgs } from './jss-template.js';
 
 export const jssMockDataTemplate: DullaghanCli.Scaffold.Template<JSSTemplateArgs> = ({
   name,
-  hasGetStaticProps,
-  hasPlaceholder,
+  jssOpts,
 }) => {
+  const { hasGetStaticProps, hasPlaceholder } = hasChoice<JSSOpt>(
+    ['hasGetStaticProps', 'hasPlaceholder'],
+    jssOpts
+  );
   /**
    * Imports
    */

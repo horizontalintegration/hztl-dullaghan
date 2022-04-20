@@ -1,7 +1,9 @@
 // Utils
-import { getImportString } from '../../utils/get-import-string.js';
 import { MOCK_DATA_DEFAULT, MOCK_DATA_STATIC_PROPS } from '../../utils/constants.js';
-export const jssStorybookTemplate = ({ name, subdirectory, hasGetStaticProps, hasPlaceholder, }) => {
+import { getImportString } from '../../utils/get-import-string.js';
+import { hasChoice } from '../../utils/has-choice.js';
+export const jssStorybookTemplate = ({ name, subdirectory, jssOpts, }) => {
+    const { hasGetStaticProps, hasPlaceholder } = hasChoice(['hasGetStaticProps', 'hasPlaceholder'], jssOpts);
     /**
      * Imports
      */

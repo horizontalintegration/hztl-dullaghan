@@ -1,15 +1,46 @@
 # `@dullaghan/cli-scaffold-templates`
 
-> TODO: description
+Default scaffold templates to use in your dullaghan config file.
 
 ## Usage
 
+Install the package as a dev dependency
+
 ```
-const cliScaffoldTemplates = require('@dullaghan/cli-scaffold-templates');
-
-// TODO: DEMONSTRATE API
+npm i -D @dullaghan/cli-scaffold-templates
 ```
 
-TODO:
+Set the desired templates in your `dullaghan.config.js` file
 
-Export as ESM/CJS
+```js
+import { reactComponent } from '@dullaghan/cli-scaffold-templates';
+
+export const config = {
+  projectType: 'React',
+  scaffold: {
+    subdirectories: [...],
+    templates: {
+      '[name].tsx': reactComponent,
+    }
+  }
+}
+```
+
+### JSS
+
+With JSS templates you'll also want to include the `jssScaffoldOpts` so the values can be populated in the templates
+
+```js
+import { jssAuthorableComponent, jssScaffoldOpts } from '@dullaghan/cli-scaffold-templates';
+
+export const config = {
+  projectType: 'JSS',
+  scaffold: {
+    subdirectories: [...],
+    templates: {
+      '[name].tsx': jssAuthorableComponent,
+    }
+    scaffoldOpts [...jssScaffoldOpts],
+  }
+}
+```

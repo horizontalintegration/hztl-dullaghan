@@ -1,7 +1,9 @@
 // Utils
-import { getImportString } from '../../utils/get-import-string.js';
 import { getDataComponentString } from '../../utils/get-data-component-string.js';
-export const jssAuthorableComponent = ({ name, subdirectory, hasPlaceholder, hasGetStaticProps, }) => {
+import { getImportString } from '../../utils/get-import-string.js';
+import { hasChoice } from '../../utils/has-choice.js';
+export const jssAuthorableComponent = ({ name, subdirectory, jssOpts, }) => {
+    const { hasPlaceholder, hasGetStaticProps } = hasChoice(['hasPlaceholder', 'hasGetStaticProps'], jssOpts);
     /**
      * Imports
      */

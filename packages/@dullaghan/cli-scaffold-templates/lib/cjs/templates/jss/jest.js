@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.jssJestTemplate = void 0;
 // Utils
-const get_import_string_js_1 = require("../../utils/get-import-string.js");
-const get_data_component_string_js_1 = require("../../utils/get-data-component-string.js");
 const constants_js_1 = require("../../utils/constants.js");
-const jssJestTemplate = ({ hasGetStaticProps, hasNextDynamic, name, subdirectory, }) => {
+const get_data_component_string_js_1 = require("../../utils/get-data-component-string.js");
+const get_import_string_js_1 = require("../../utils/get-import-string.js");
+const has_choice_js_1 = require("../../utils/has-choice.js");
+const jssJestTemplate = ({ jssOpts, name, subdirectory, }) => {
+    const { hasGetStaticProps, hasNextDynamic } = (0, has_choice_js_1.hasChoice)(['hasGetStaticProps', 'hasNextDynamic'], jssOpts);
     /**
      * Imports
      */

@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.jssAuthorableComponent = void 0;
 // Utils
-const get_import_string_js_1 = require("../../utils/get-import-string.js");
 const get_data_component_string_js_1 = require("../../utils/get-data-component-string.js");
-const jssAuthorableComponent = ({ name, subdirectory, hasPlaceholder, hasGetStaticProps, }) => {
+const get_import_string_js_1 = require("../../utils/get-import-string.js");
+const has_choice_js_1 = require("../../utils/has-choice.js");
+const jssAuthorableComponent = ({ name, subdirectory, jssOpts, }) => {
+    const { hasPlaceholder, hasGetStaticProps } = (0, has_choice_js_1.hasChoice)(['hasPlaceholder', 'hasGetStaticProps'], jssOpts);
     /**
      * Imports
      */

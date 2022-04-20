@@ -1,17 +1,22 @@
 // Global
 import { DullaghanCli } from '@dullaghan/cli-shared-utils';
 // Utils
-import { getImportString } from '../../utils/get-import-string.js';
 import { getDataComponentString } from '../../utils/get-data-component-string.js';
+import { getImportString } from '../../utils/get-import-string.js';
+import { hasChoice } from '../../utils/has-choice.js';
 // Local
-import { JSSTemplateArgs } from './jss-template.js';
+import { JSSOpt, JSSTemplateArgs } from './jss-template.js';
 
 export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<JSSTemplateArgs> = ({
   name,
   subdirectory,
-  hasPlaceholder,
-  hasGetStaticProps,
+  jssOpts,
 }) => {
+  const { hasPlaceholder, hasGetStaticProps } = hasChoice<JSSOpt>(
+    ['hasPlaceholder', 'hasGetStaticProps'],
+    jssOpts
+  );
+
   /**
    * Imports
    */

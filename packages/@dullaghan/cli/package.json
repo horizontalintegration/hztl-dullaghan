@@ -44,6 +44,7 @@
     "@dullaghan/cli-shared-utils": "^0.5.0-alpha.0",
     "chalk": "^5.0.0",
     "commander": "^9.0.0",
+    "cosmiconfig": "^7.0.1",
     "execa": "^6.1.0",
     "fs-extra": "^10.0.1",
     "inquirer": "^8.2.2",

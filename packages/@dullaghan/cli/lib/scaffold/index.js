@@ -4,15 +4,21 @@ import chalk from 'chalk';
 import fs from 'fs';
 import inquirer from 'inquirer';
 import { resolve } from 'path';
-// Utils
-import { getConfig } from '../utils/get-config.js';
+import { cosmiconfigSync } from 'cosmiconfig';
 export const scaffold = async (name, options) => {
     if (!/^[A-Z][A-Za-z]+/g.test(name)) {
         console.log(`${chalk.yellow('Your component name must be pascal case and contain only letters.')}
 ${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
         exit(1);
     }
-    const config = await getConfig(options.config || process.cwd());
+    const explorer = cosmiconfigSync('dullaghan');
+    const searchResult = explorer.search();
+    if (!searchResult?.config) {
+        console.log(`${chalk.red('No dullaghan config found.')}
+Visit https://www.npmjs.com/package/@dullaghan/cli to learn more`);
+        exit(1);
+    }
+    const config = searchResult.config;
     if (!config.scaffold) {
         console.log(chalk.red('The provided scaffold config is invalid. Please remove the scaffold key from your custom config or replace it with a valid scaffold config.'));
         exit(1);
@@ -40,41 +46,20 @@ ${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
     }
     const COMPONENT_DIRECTORY_PATH = resolve(subdirectory.path, name);
     // Build scaffold template args
-    const scaffoldTemplateArgs = {
+    let scaffoldTemplateArgs = {
         name,
         subdirectory,
-        hasGetStaticProps: false,
-        hasNextDynamic: false,
-        hasPlaceholder: false,
     };
-    // Get the scaffold options for JSS projects
-    if (config.projectType === 'JSS') {
-        const { scaffoldOptSelections, } = await inquirer.prompt([
-            {
-                name: 'scaffoldOptSelections',
-                type: 'checkbox',
-                message: 'Select any customizations needed for your component:',
-                choices: [
-                    { name: 'Contains a Placeholder component', value: 'hasPlaceholder' },
-                    {
-                        name: 'Uses data from getStaticProps (connected GraphQL or other server-side API calls)',
-                        value: 'hasGetStaticProps',
-                    },
-                    { name: 'Contains a next/dynamic import', value: 'hasNextDynamic' },
-                ],
-            },
-        ]);
-        scaffoldOptSelections.forEach((key) => {
-            scaffoldTemplateArgs[key] = true;
-        });
+    const scaffoldOpts = config.scaffold.scaffoldOpts;
+    if (scaffoldOpts) {
+        const scaffoldOptSelections = await inquirer.prompt(scaffoldOpts);
+        scaffoldTemplateArgs = { ...scaffoldTemplateArgs, ...scaffoldOptSelections };
     }
     // Create the base directory
-    console.log(COMPONENT_DIRECTORY_PATH);
     if (!fs.existsSync(COMPONENT_DIRECTORY_PATH)) {
         fs.mkdirSync(COMPONENT_DIRECTORY_PATH, { recursive: true });
     }
-    // Create the files
-    // TODO: Smart merge if subdirectory.templates is an empty array
+    // Compile the files to create
     const filesToCreate = {
         ...config.scaffold.templates,
         ...subdirectory.templates,
@@ -104,12 +89,14 @@ ${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
         });
     };
     const files = Object.entries(filesToCreate);
+    // Write each template file
     await files.reduce((prev, curr) => {
         return prev.then(() => {
             return writeTemplateFile(curr[0], curr[1]);
         });
     }, Promise.resolve());
-    // await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
+    await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
+    // TODO: Run prettier if it's installed
     console.log(`
 ${chalk.green(name)} has been created.
 `);

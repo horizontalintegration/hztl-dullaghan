@@ -1,18 +1,23 @@
 // Global
 import { DullaghanCli } from '@dullaghan/cli-shared-utils';
 // Utils
-import { getImportString } from '../../utils/get-import-string.js';
-import { getDataComponentString } from '../../utils/get-data-component-string.js';
 import { MOCK_DATA_DEFAULT, MOCK_DATA_STATIC_PROPS } from '../../utils/constants.js';
+import { getDataComponentString } from '../../utils/get-data-component-string.js';
+import { getImportString } from '../../utils/get-import-string.js';
+import { hasChoice } from '../../utils/has-choice.js';
 // Local
-import { JSSTemplateArgs } from './jss-template.js';
+import { JSSTemplateArgs, JSSOpt } from './jss-template.js';
 
 export const jssJestTemplate: DullaghanCli.Scaffold.Template<JSSTemplateArgs> = ({
-  hasGetStaticProps,
-  hasNextDynamic,
+  jssOpts,
   name,
   subdirectory,
 }) => {
+  const { hasGetStaticProps, hasNextDynamic } = hasChoice<JSSOpt>(
+    ['hasGetStaticProps', 'hasNextDynamic'],
+    jssOpts
+  );
+
   /**
    * Imports
    */
