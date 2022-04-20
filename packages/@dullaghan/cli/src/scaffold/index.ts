@@ -154,6 +154,8 @@ ${chalk.gray('Ex: FooBar, MyCard, Accordion')}`);
     });
   }, Promise.resolve());
 
+  // TODO: Run prettier if it's installed
+
   // await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
 
   console.log(`

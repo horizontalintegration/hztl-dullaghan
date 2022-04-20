@@ -1,20 +1,14 @@
 {
-  "name": "@dullaghan/cli-shared-utils",
+  "name": "@dullaghan/cli-scaffold-templates",
   "version": "0.4.8-alpha.0",
-  "description": "Shared utilities for various Dullaghan CLI packages",
+  "description": "A collection of default templates for customizing scaffold config.",
   "contributors": [
     "Brian George <bgeorge@horizontal.com>"
   ],
-  "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli-shared-utils#readme",
+  "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli-scaffold-templates#readme",
+  "license": "ISC",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
-  "types": "lib/cjs/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -32,7 +26,7 @@
     "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
   },
   "dependencies": {
-    "inquirer": "^8.2.2"
+    "@dullaghan/cli-shared-utils": "file:../cli-shared-utils"
   },
   "devDependencies": {
     "typescript": "^4.6.3"
