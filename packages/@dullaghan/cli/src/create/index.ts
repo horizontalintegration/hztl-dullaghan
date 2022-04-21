@@ -7,6 +7,7 @@ import * as fs from 'fs';
 import chalk from 'chalk';
 import fsExtra from 'fs-extra';
 import inquirer from 'inquirer';
+import { DullaghanCli } from '@dullaghan/cli-shared-utils';
 // Local
 import { storybookPackageConfig } from './modules/storybook.js';
 

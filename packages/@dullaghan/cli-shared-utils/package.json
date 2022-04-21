@@ -1,12 +1,14 @@
 {
   "name": "@dullaghan/cli-shared-utils",
-  "version": "0.4.8-alpha.0",
-  "description": "> TODO: description",
+  "version": "0.5.0-alpha.1",
+  "description": "Shared utilities for various Dullaghan CLI packages",
   "contributors": [
     "Brian George <bgeorge@horizontal.com>"
   ],
   "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli-shared-utils#readme",
-  "main": "lib/cli-shared-utils.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/cjs/index.d.ts",
   "directories": {
     "lib": "lib"
   },
@@ -21,7 +23,9 @@
     "url": "git+https://github.com/horizontalintegration/hztl-dullaghan.git"
   },
   "scripts": {
-    "build": "rm -rf ./lib && tsc --project tsconfig.json",
+    "build": "rm -rf ./lib && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc --project tsconfig.json --module commonjs --outDir lib/cjs",
+    "build:esm": "tsc --project tsconfig.json --module es2020 --outDir lib/esm",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {

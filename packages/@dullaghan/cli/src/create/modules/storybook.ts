@@ -1,3 +1,5 @@
+import { DullaghanCli } from '@dullaghan/cli-shared-utils';
+
 export const storybookPackageConfig: DullaghanCli.Create.ModulePackageConfig = {
   scripts: [['storybook', 'start-storybook -p 3000']],
   devDependencies: [

@@ -13,3 +13,6 @@ test
 lerna-debug.log
 
 .changelog
+
+# ts
+*.tsbuildinfo

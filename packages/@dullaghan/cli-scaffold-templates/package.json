@@ -1,0 +1,34 @@
+{
+  "name": "@dullaghan/cli-scaffold-templates",
+  "version": "0.5.0-alpha.1",
+  "description": "A collection of default templates for customizing scaffold config.",
+  "contributors": [
+    "Brian George <bgeorge@horizontal.com>"
+  ],
+  "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli-scaffold-templates#readme",
+  "license": "ISC",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horizontalintegration/hztl-dullaghan.git"
+  },
+  "scripts": {
+    "build": "rm -rf ./lib && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc --project tsconfig.json --module commonjs --outDir lib/cjs",
+    "build:esm": "tsc --project tsconfig.json --module es2020 --outDir lib/esm",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@dullaghan/cli-shared-utils": "^0.5.0-alpha.1"
+  }
+}

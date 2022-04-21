@@ -1,6 +1,6 @@
 {
   "npmClient": "npm",
-  "version": "0.4.8-alpha.0",
+  "version": "0.5.0-alpha.1",
   "packages": [
     "packages/@dullaghan/*"
   ],

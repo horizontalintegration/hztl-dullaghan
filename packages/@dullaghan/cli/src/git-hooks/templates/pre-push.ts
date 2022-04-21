@@ -1,3 +1,5 @@
+import { DullaghanCli } from '@dullaghan/cli-shared-utils';
+
 export const prePush: DullaghanCli.CommitHooks.Template = (name) => `#!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 

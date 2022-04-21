@@ -1,4 +1,4 @@
-import inquirer from 'inquirer';
+import { QuestionCollection } from 'inquirer';
 
 export namespace DullaghanCli {
   /**
@@ -65,7 +65,7 @@ export namespace DullaghanCli {
 export interface DullaghanConfig {
   projectType: 'JSS' | 'React';
   scaffold?: {
-    scaffoldOpts?: inquirer.QuestionCollection<any>;
+    scaffoldOpts?: QuestionCollection<any>;
     subdirectories: DullaghanCli.Scaffold.Subdirectory[];
     templates?: DullaghanCli.Scaffold.TemplateDictionary;
   };
