@@ -1,6 +1,6 @@
 {
   "name": "@dullaghan/heading-tag",
-  "version": "0.4.7",
+  "version": "0.5.0-alpha.4",
   "description": "A more flexible heading tag",
   "keywords": [
     "React",
@@ -40,7 +40,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
-    "@dullaghan/eslint-config-react": "^0.5.0-alpha.3",
+    "@dullaghan/eslint-config-react": "^0.5.0-alpha.4",
     "@dullaghan/prettier-config": "^0.5.0-alpha.2",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-node-resolve": "^13.1.3",

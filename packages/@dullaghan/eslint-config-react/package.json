@@ -1,6 +1,6 @@
 {
   "name": "@dullaghan/eslint-config-react",
-  "version": "0.5.0-alpha.3",
+  "version": "0.5.0-alpha.4",
   "description": "Eslint config for React projects",
   "contributors": [
     "Brian George <bgeorge@horizontal.com>"
