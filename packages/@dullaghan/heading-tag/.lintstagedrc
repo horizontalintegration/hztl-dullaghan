@@ -1,0 +1,13 @@
+{
+  "!(lib/*)*.ts?(x)": [
+    "prettier -w",
+    "eslint -c .eslintrc.json"
+  ],
+  "!(lib/*)*.js?(x)": [
+    "prettier -w",
+    "eslint -c .eslintrc.json"
+  ],
+  "!(lib/*)*.json": [
+    "prettier -w"
+  ]
+}

@@ -29,4 +29,15 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
   },
+  overrides: [
+    // @typescript-eslint reccomends removing 'no-undef' in typescript files
+    // as the functionality is already provided without additional config
+    // within Typescript itself
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
 };

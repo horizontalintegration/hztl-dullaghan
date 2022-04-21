@@ -1,0 +1,6 @@
+{
+  "extends": ["@dullaghan/eslint-config-react"],
+  "rules": {
+    "react/jsx-props-no-spreading": 0
+  }
+}
