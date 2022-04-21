@@ -1,0 +1,32 @@
+{
+  "name": "@dullaghan/eslint-config-react",
+  "version": "0.5.0-alpha.2",
+  "description": "Eslint config for React projects",
+  "contributors": [
+    "Brian George <bgeorge@horizontal.com>"
+  ],
+  "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/eslint-config-react#readme",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horizontalintegration/hztl-dullaghan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0"
+  }
+}
