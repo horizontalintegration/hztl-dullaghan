@@ -101,34 +101,46 @@ export const create = async (name: string, { config }: { config?: string }) => {
       if (MODULE_CONFIG.hasOwnProperty(module)) {
         Object.entries(MODULE_CONFIG[module]).forEach(([key, val]) => {
           const propMap = val.reduce(
-            (prev: Record<string, string>, curr: DullaghanCli.Create.PackageTuple) => ({
+            (
+              prev: Record<string, string>,
+              curr: DullaghanCli.Create.PackageTuple
+            ) => ({
               ...prev,
               [curr[0]]: curr[1],
             }),
             {}
           );
-          (packageJson as any)[key] = { ...(packageJson as any)[key], ...propMap };
+          (packageJson as any)[key] = {
+            ...(packageJson as any)[key],
+            ...propMap,
+          };
         });
       }
     });
   }
 
   fs.writeFileSync(packagePath, JSON.stringify(packageJson));
-  // TODO: Run prettier on package
 
   // Duplicate the .env file
-  fsExtra.copySync(resolve(DESTINATION_PATH, '.env'), resolve(DESTINATION_PATH, '.env.local'));
+  fsExtra.copySync(
+    resolve(DESTINATION_PATH, '.env'),
+    resolve(DESTINATION_PATH, '.env.local')
+  );
 
   // Execute external command line setups
   console.log(`
-Intializing Git repository`);
-  await execa('git', ['init'], { cwd: DESTINATION_PATH });
-
-  console.log('Installing dependencies');
+Installing dependencies`);
   await execa('npm', ['i'], { cwd: DESTINATION_PATH });
 
   console.log('Bootstrapping JSS files');
   await execa('jss', ['bootstrap'], { cwd: DESTINATION_PATH });
+
+  // Run prettier on package.json
+  await execa(
+    'npx',
+    ['prettier', '-w', '--config', '.prettierrc', 'package.json'],
+    { cwd: DESTINATION_PATH }
+  );
 
   // Completed
   console.log(`
@@ -138,6 +150,8 @@ To get started:
 - Add the appropriate Sitecore variables to the ${chalk.cyan('.env.local')} file
 - Run ${chalk.cyan(`cd ${name} && jss start:connected`)}
 
-If you haven't already, run ${chalk.cyan('dullaghan git-hooks')} at the root of this repository.
+If you haven't already, run ${chalk.cyan(
+    'dullaghan git-hooks'
+  )} at the root of this repository.
 `);
 };

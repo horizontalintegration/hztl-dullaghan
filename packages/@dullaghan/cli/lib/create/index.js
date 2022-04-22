@@ -85,23 +85,25 @@ export const create = async (name, { config }) => {
                         ...prev,
                         [curr[0]]: curr[1],
                     }), {});
-                    packageJson[key] = { ...packageJson[key], ...propMap };
+                    packageJson[key] = {
+                        ...packageJson[key],
+                        ...propMap,
+                    };
                 });
             }
         });
     }
     fs.writeFileSync(packagePath, JSON.stringify(packageJson));
-    // TODO: Run prettier on package
     // Duplicate the .env file
     fsExtra.copySync(resolve(DESTINATION_PATH, '.env'), resolve(DESTINATION_PATH, '.env.local'));
     // Execute external command line setups
     console.log(`
-Intializing Git repository`);
-    await execa('git', ['init'], { cwd: DESTINATION_PATH });
-    console.log('Installing dependencies');
+Installing dependencies`);
     await execa('npm', ['i'], { cwd: DESTINATION_PATH });
     console.log('Bootstrapping JSS files');
     await execa('jss', ['bootstrap'], { cwd: DESTINATION_PATH });
+    // Run prettier on package.json
+    await execa('npx', ['prettier', '-w', '--config', '.prettierrc', 'package.json'], { cwd: DESTINATION_PATH });
     // Completed
     console.log(`
 Project ${chalk.green(`${name}`)} has been created.
