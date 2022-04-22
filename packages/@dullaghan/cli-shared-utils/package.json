@@ -6,15 +6,9 @@
     "Brian George <bgeorge@horizontal.com>"
   ],
   "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli-shared-utils#readme",
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "types": "lib/cjs/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "lib"
-  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
@@ -23,9 +17,10 @@
     "url": "git+https://github.com/horizontalintegration/hztl-dullaghan.git"
   },
   "scripts": {
-    "build": "rm -rf ./lib && npm run build:cjs && npm run build:esm",
-    "build:cjs": "tsc --project tsconfig.json --module commonjs --outDir lib/cjs",
-    "build:esm": "tsc --project tsconfig.json --module es2020 --outDir lib/esm",
+    "build": "rm -rf ./dist && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc --project tsconfig.json --module commonjs --outDir dist/cjs",
+    "build:esm": "tsc --project tsconfig.json --module es2020 --outDir dist/esm",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {

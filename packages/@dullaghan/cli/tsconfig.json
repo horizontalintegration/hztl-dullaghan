@@ -5,12 +5,12 @@
     "moduleResolution": "node",
     "lib": ["es2020", "dom"],
     "declaration": true,
-    "outDir": "lib",
+    "outDir": "dist",
     "rootDir": "src",
     "strict": true,
     "types": ["node"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["./src/create/templates/", "lib"]
+  "exclude": ["./src/create/templates/", "dist"]
 }

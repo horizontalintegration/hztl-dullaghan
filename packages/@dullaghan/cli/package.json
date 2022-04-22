@@ -11,18 +11,11 @@
     "Brian George <bgeorge@horizontal.com>"
   ],
   "homepage": "https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/@dullaghan/cli#readme",
-  "license": "ISC",
-  "main": "lib/cli.js",
+  "main": "dist/cli.js",
+  "module": "dist/cli.js",
   "bin": {
-    "dullaghan": "lib/cli.js"
+    "dullaghan": "dist/cli.js"
   },
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -31,11 +24,12 @@
     "url": "git+https://github.com/horizontalintegration/hztl-dullaghan.git"
   },
   "scripts": {
-    "test": "npm run build && npm run local && cd ../../../ && dullaghan create test",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' -e ts",
-    "build": "rm -rf ./lib && tsc --project tsconfig.json",
+    "build": "rm -rf ./dist && tsc --project tsconfig.json",
     "local": "sudo npm i -g",
-    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+    "prepublishOnly": "npm run build",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' -e ts",
+    "test": "npm run build && npm run local && cd ../../../ && dullaghan create test"
   },
   "bugs": {
     "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
@@ -47,8 +41,7 @@
     "cosmiconfig": "^7.0.1",
     "execa": "^6.1.0",
     "fs-extra": "^10.0.1",
-    "inquirer": "^8.2.2",
-    "lib": "^4.3.3"
+    "inquirer": "^8.2.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
