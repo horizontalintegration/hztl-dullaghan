@@ -37,8 +37,9 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@dullaghan/eslint-config-react": "^0.5.0-alpha.4",
-    "@dullaghan/prettier-config": "^0.5.0-alpha.2",
+    "@dullaghan/eslint-config-react": "^0.5.0-alpha.8",
+    "@dullaghan/prettier-config": "^0.5.0-alpha.8",
+    "@dullaghan/cli-scaffold-templates": "0.5.0-alpha.8",
     "@sitecore-jss/sitecore-jss-cli": "^19.0.2",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@testing-library/react": "^12.1.5",

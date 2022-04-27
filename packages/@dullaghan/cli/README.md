@@ -19,32 +19,18 @@ dullaghan help
 
 ### create
 
+Builds our JSS starter template for you.
+
+See the [create docs](https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/%40dullaghan/cli/src/create) for more info.
+
 ### git-hooks
+
+Initializes git and configures [husky](https://www.npmjs.com/package/husky) for running our preferred set of pre-commit and pre-push hooks.
+
+See the [git-hooks docs](https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/%40dullaghan/cli/src/git-hooks) for more info.
 
 ### scaffold
 
 Scaffold allows you to quickly create a set of files needed for each component in your project.
 
-#### Configuration
-
-Out of the box it is configured to create files for the JSS project provided by the `create` command, but it can be configured for any type of project.
-
-You can add a `dullaghan.config.mjs` file at the root of your project that contains the updates you wish to make.
-
-```js
-import { myComponentTemplate } from './templates/my-component-template.mjs';
-import { myTestTemplate } from './templates/my-test-template.mjs';
-
-export const config = {
-  projectType: 'React';
-  scaffold: {
-    subdirectories: [
-      { name: 'Components', path: './src/components/' },
-    ],
-    templates: {
-      '[name].tsx': myComponentTemplate,
-      '[name].test.js': myTestTemplate,
-    }
-  },
-};
-```
+See the [scaffold docs](https://github.com/horizontalintegration/hztl-dullaghan/tree/main/packages/%40dullaghan/cli/src/scaffold) for more info on configuring your specific project.

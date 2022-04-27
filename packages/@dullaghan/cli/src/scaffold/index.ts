@@ -11,7 +11,10 @@ interface CustomTemplateArgs extends DullaghanCli.Scaffold.TemplateArgs {
   [name: string]: unknown;
 }
 
-export const scaffold = async (name: string, options: DullaghanCli.Scaffold.CliArgs) => {
+export const scaffold = async (
+  name: string,
+  options: DullaghanCli.Scaffold.CliArgs
+) => {
   if (!/^[A-Z][A-Za-z]+/g.test(name)) {
     console.log(`${chalk.yellow(
       'Your component name must be pascal case and contain only letters.'
@@ -87,7 +90,10 @@ Visit https://www.npmjs.com/package/@dullaghan/cli to learn more`);
   if (scaffoldOpts) {
     const scaffoldOptSelections = await inquirer.prompt(scaffoldOpts);
 
-    scaffoldTemplateArgs = { ...scaffoldTemplateArgs, ...scaffoldOptSelections };
+    scaffoldTemplateArgs = {
+      ...scaffoldTemplateArgs,
+      ...scaffoldOptSelections,
+    };
   }
 
   // Create the base directory
@@ -145,8 +151,6 @@ Visit https://www.npmjs.com/package/@dullaghan/cli to learn more`);
       return writeTemplateFile(curr[0], curr[1]);
     });
   }, Promise.resolve());
-
-  await Promise.all(Object.entries(filesToCreate).map(([key, val]) => writeTemplateFile(key, val)));
 
   // TODO: Run prettier if it's installed
 
