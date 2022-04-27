@@ -51,7 +51,12 @@ export namespace DullaghanCli {
 
     export type Template<T extends TemplateArgs> = (args: T) => string;
 
-    export type ImportCategories = 'global' | 'test' | 'lib' | 'components' | 'local';
+    export type ImportCategories =
+      | 'global'
+      | 'test'
+      | 'lib'
+      | 'components'
+      | 'local';
   }
 
   /**

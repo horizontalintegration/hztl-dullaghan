@@ -4,17 +4,14 @@
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "module": "ESNext",  
+    "module": "ESNext",
     "declaration": true,
     "sourceMap": true,
     "outDir": "",
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "exclude": [
-    "lib",
-    "node_modules"
-  ],
+  "exclude": ["dist", "node_modules"]
 }
