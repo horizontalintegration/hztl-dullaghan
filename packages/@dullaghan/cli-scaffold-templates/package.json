@@ -27,10 +27,12 @@
     "url": "https://github.com/horizontalintegration/hztl-dullaghan/issues"
   },
   "devDependencies": {
+    "@types/inquirer": "^8.2.1",
     "@types/node": "^17.0.29",
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@dullaghan/cli-shared-utils": "^0.5.0-alpha.7"
-  }
+    "@dullaghan/cli-shared-utils": "^0.5.0-alpha.6"
+  },
+  "gitHead": "25ff1f134911115328fc04e439f6248a3bcca944"
 }
