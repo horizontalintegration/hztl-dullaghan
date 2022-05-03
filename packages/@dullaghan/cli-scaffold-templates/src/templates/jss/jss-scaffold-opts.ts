@@ -2,7 +2,7 @@ import { QuestionCollection } from 'inquirer';
 
 export const jssScaffoldOpts: QuestionCollection<any> = [
   {
-    name: 'scaffoldOptSelections',
+    name: 'jssOpts',
     type: 'checkbox',
     message: 'Select any customizations needed for your component:',
     choices: [

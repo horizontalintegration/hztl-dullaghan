@@ -7,11 +7,9 @@ import { hasChoice } from '../../utils/has-choice.js';
 // Local
 import { JSSOpt, JSSTemplateArgs } from './jss-template.js';
 
-export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<JSSTemplateArgs> = ({
-  name,
-  subdirectory,
-  jssOpts,
-}) => {
+export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
+  JSSTemplateArgs
+> = ({ name, subdirectory, jssOpts }) => {
   const { hasPlaceholder, hasGetStaticProps } = hasChoice<JSSOpt>(
     ['hasPlaceholder', 'hasGetStaticProps'],
     jssOpts
@@ -29,11 +27,13 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<JSSTemplateA
   };
 
   // Different options want different parts of this lib
-  const staticPropsPartials = ['GetStaticComponentProps', 'useComponentProps'];
+  const staticPropsPartials = ['GetStaticComponentProps'];
   let allPartials: string[] = [];
 
   if (hasGetStaticProps) {
-    imports.lib.push(`import graphQLClientFactory from 'lib/graphql/client-factory';`);
+    imports.lib.push(
+      `import graphQLClientFactory from 'lib/graphql/client-factory';`
+    );
     imports.lib.push(`import query from './${name}.graphql';`);
     allPartials = allPartials.concat(staticPropsPartials);
   }
@@ -44,19 +44,11 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<JSSTemplateA
 
   if (allPartials.length > 0) {
     imports.global.push(
-      `import { ${allPartials.join(', ')} } from '@sitecore-jss/sitecore-jss-nextjs';`
+      `import { ${allPartials.join(
+        ', '
+      )} } from '@sitecore-jss/sitecore-jss-nextjs';`
     );
   }
-
-  /**
-   * Static Props Data
-   */
-  const staticPropsData = hasGetStaticProps
-    ? `
-    const renderingId = rendering?.uid || '';
-    const graphQlData = useComponentProps<${name}StaticData>(renderingId);
-  `
-    : '';
 
   // Placeholder
   if (hasPlaceholder) {
@@ -93,7 +85,8 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<JSSTemplateA
 `
     : '';
 
-  const jsxProps = hasGetStaticProps || hasPlaceholder ? 'fields, rendering' : 'fields';
+  const jsxProps =
+    hasGetStaticProps || hasPlaceholder ? 'fields, rendering' : 'fields';
 
   /**
    * Static Props Fetch
@@ -120,9 +113,10 @@ export const getStaticProps: GetStaticComponentProps = async (rendering, layoutD
   /**
    * Template
    */
-  return `${getImportString(imports)}${componentInterface}${staticPropsInterface}
+  return `${getImportString(
+    imports
+  )}${componentInterface}${staticPropsInterface}
 const ${name} = ({ ${jsxProps} }: ${name}Props): JSX.Element => {
-  ${staticPropsData}
   // Fail out if we don't have any fields
   if (!fields) { 
     return <></>;
