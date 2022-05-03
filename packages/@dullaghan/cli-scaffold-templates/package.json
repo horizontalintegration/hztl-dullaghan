@@ -1,6 +1,6 @@
 {
   "name": "@dullaghan/cli-scaffold-templates",
-  "version": "0.5.0-alpha.8",
+  "version": "0.5.0-alpha.11",
   "description": "A collection of default templates for customizing scaffold config.",
   "contributors": [
     "Brian George <bgeorge@horizontal.com>"
