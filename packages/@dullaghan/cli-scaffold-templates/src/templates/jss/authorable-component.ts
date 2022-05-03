@@ -70,7 +70,7 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
 
   const componentInterface = `export interface ${name}Props {
   fields?: {};${
-    hasGetStaticProps || hasPlaceholder
+    hasPlaceholder
       ? `
   rendering: ComponentRendering;`
       : ''
@@ -85,8 +85,7 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
 `
     : '';
 
-  const jsxProps =
-    hasGetStaticProps || hasPlaceholder ? 'fields, rendering' : 'fields';
+  const jsxProps = hasPlaceholder ? 'fields, rendering' : 'fields';
 
   /**
    * Static Props Fetch
