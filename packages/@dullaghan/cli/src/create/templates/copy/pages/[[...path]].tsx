@@ -3,7 +3,6 @@ import type { NextPage, GetStaticPaths, GetStaticProps } from 'next';
 import { ComponentPropsContext, SitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
 // Lib
 import type { SitecorePageProps } from 'lib/sitecore/page-props';
-import type { ExtendedSitecoreContext } from 'lib/sitecore/sitecore-context';
 import { sitemapFetcher } from 'lib/sitecore/sitemap-fetcher';
 import { sitecorePagePropsFactory } from 'lib/sitecore/page-props-factory';
 // Config
@@ -51,15 +50,9 @@ const SitecorePage: NextPage<SitecorePageProps> = ({ componentProps, layoutData,
     return <NotFound />;
   }
 
-  const context: ExtendedSitecoreContext = {
-    route: layoutData.sitecore.route,
-    itemId: layoutData.sitecore.route?.itemId,
-    ...layoutData.sitecore.context,
-  };
-
   return (
     <ComponentPropsContext value={componentProps}>
-      <SitecoreContext context={context} componentFactory={componentFactory}>
+      <SitecoreContext layoutData={layoutData} componentFactory={componentFactory}>
         <PageLayout />
       </SitecoreContext>
     </ComponentPropsContext>

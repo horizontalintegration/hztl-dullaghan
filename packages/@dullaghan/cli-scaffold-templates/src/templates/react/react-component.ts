@@ -1,11 +1,13 @@
 import { DullaghanCli } from '@dullaghan/cli-shared-utils';
 
-export const reactComponent: DullaghanCli.Scaffold.Template<any> = ({ name }) => {
+export const reactComponent: DullaghanCli.Scaffold.Template<any> = ({
+  name,
+}) => {
   return `export type ${name}Props = {
 
 }
 
-const ${name} = ({}: ${name}Props): JSX.Element => {
+const ${name} = ({}: ${name}Props) => {
   return (
     <div>${name}</div>
   );

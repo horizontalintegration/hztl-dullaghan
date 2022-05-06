@@ -15,6 +15,8 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
     jssOpts
   );
 
+  const STATIC_PROPS_INTERFACE = `${name}StaticProps`;
+
   /**
    * Imports
    */
@@ -27,18 +29,20 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
   };
 
   // Different options want different parts of this lib
-  const staticPropsPartials = ['GetStaticComponentProps'];
   let allPartials: string[] = [];
 
   if (hasGetStaticProps) {
     imports.lib.push(
       `import graphQLClientFactory from 'lib/graphql/client-factory';`
     );
-    imports.lib.push(`import query from './${name}.graphql';`);
-    allPartials = allPartials.concat(staticPropsPartials);
+    imports.local.push(`import query from './${name}.graphql';`);
+    imports.global.push(
+      `import { ComponentPropsFetchFunction } from '@sitecore-jss/sitecore-jss-nextjs/types/sharedTypes/component-props';`
+    );
+    imports.global.push(`import { GetStaticPropsContext } from 'next';`);
   }
 
-  if (hasGetStaticProps || hasPlaceholder) {
+  if (hasPlaceholder) {
     allPartials.push('ComponentRendering');
   }
 
@@ -74,13 +78,19 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
       ? `
   rendering: ComponentRendering;`
       : ''
+  }${
+    hasGetStaticProps
+      ? `
+  staticProps: ${STATIC_PROPS_INTERFACE}`
+      : ''
   }
 }
 `;
 
+  // Static props interface
   const staticPropsInterface = hasGetStaticProps
-    ? `export interface ${name}StaticData {
-  datasource: {}
+    ? `interface ${STATIC_PROPS_INTERFACE} {
+  staticProps: {}
 }
 `
     : '';
@@ -93,18 +103,23 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
   const staticPropsFetch = hasGetStaticProps
     ? `
 /* istanbul ignore next - We aren't running E2E tests. */
-export const getStaticProps: GetStaticComponentProps = async (rendering, layoutData) => {
-  const graphQLClient = graphQLClientFactory();
-  
-  const result = await graphQLClient.query({
-    query,
-    variables: {
-      datasource: rendering.dataSource,
-      contextItem: layoutData?.sitecore?.route?.itemId,
-    },
-  });
-  
-  return result.data;
+export const getStaticProps: ComponentPropsFetchFunction<
+ GetStaticPropsContext,
+ ${STATIC_PROPS_INTERFACE}
+> = async (rendering, layoutData) => {
+ const graphQLClient = graphQLClientFactory();
+
+ const result = await graphQLClient.query({
+   query,
+   variables: {
+     datasource: rendering.dataSource,
+     language: layoutData.sitecore.context.language,
+   },
+ });
+
+ return {
+   staticProps: result.data,
+ };
 };
 `
     : '';
@@ -114,8 +129,8 @@ export const getStaticProps: GetStaticComponentProps = async (rendering, layoutD
    */
   return `${getImportString(
     imports
-  )}${componentInterface}${staticPropsInterface}
-const ${name} = ({ ${jsxProps} }: ${name}Props): JSX.Element => {
+  )}${staticPropsInterface}${componentInterface}
+const ${name} = ({ ${jsxProps} }: ${name}Props) => {
   // Fail out if we don't have any fields
   if (!fields) { 
     return <></>;
