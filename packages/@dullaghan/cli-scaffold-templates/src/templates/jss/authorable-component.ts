@@ -72,16 +72,13 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
       />`
     : '';
 
-  const componentInterface = `export interface ${name}Props {
+  const componentInterface = `export interface ${name}Props${
+    hasGetStaticProps ? ` extends ${STATIC_PROPS_INTERFACE}` : ''
+  } {
   fields?: {};${
     hasPlaceholder
       ? `
   rendering: ComponentRendering;`
-      : ''
-  }${
-    hasGetStaticProps
-      ? `
-  staticProps: ${STATIC_PROPS_INTERFACE}`
       : ''
   }
 }
@@ -92,6 +89,7 @@ export const jssAuthorableComponent: DullaghanCli.Scaffold.Template<
     ? `interface ${STATIC_PROPS_INTERFACE} {
   staticProps: {}
 }
+
 `
     : '';
 
