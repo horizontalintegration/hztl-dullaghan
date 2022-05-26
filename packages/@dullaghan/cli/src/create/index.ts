@@ -133,6 +133,11 @@ Installing dependencies`);
   await execa('npm', ['i'], { cwd: DESTINATION_PATH });
 
   console.log('Bootstrapping JSS files');
+  // Authorable folder is required to exist
+  const authorablePath = resolve(DESTINATION_PATH, 'components', 'authorable');
+  if (!fs.existsSync(authorablePath)) {
+    fs.mkdirSync(authorablePath);
+  }
   await execa('jss', ['bootstrap'], { cwd: DESTINATION_PATH });
 
   // Run prettier on package.json

@@ -30,7 +30,7 @@ const componentFactoryPath = path.resolve('temp/component-factory.ts');
 const componentRootPath = 'components/authorable';
 
 // Matches TypeScript files that are not type definition files (name.d.ts) or storybook stories (name.stories.tsx)
-const fileFormat = new RegExp(/(.+)(?<!\.d)(?<!\.mock-data)(?<!\.stories)(?<!\.test)\.tsx?$/);
+const fileFormat = new RegExp(/(.+)(?<!\.d)(?<!\.mock-data)(?<!\.stories)(?<!\.test)(?<!\.graphql)\.tsx?$/);
 
 const isWatch = process.argv.some((arg) => arg === '--watch');
 (isWatch ? watchComponentFactory : writeComponentFactory)();
