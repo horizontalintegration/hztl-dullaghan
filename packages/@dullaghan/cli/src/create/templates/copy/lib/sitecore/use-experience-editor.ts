@@ -1,8 +1,7 @@
 import { useSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
-import { ExtendedSitecoreContext } from './sitecore-context';
 
 const useExperienceEditor = () => {
-  const context = useSitecoreContext<ExtendedSitecoreContext>();
+  const context = useSitecoreContext();
   return context?.sitecoreContext.pageEditing ? context.sitecoreContext.pageEditing : false;
 };
 

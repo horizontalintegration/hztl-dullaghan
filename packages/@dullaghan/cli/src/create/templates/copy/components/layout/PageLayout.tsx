@@ -1,11 +1,14 @@
 // Global
-import { SitecoreContext, useSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
+import { useSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
 import Head from 'next/head';
-// Lib
-import { ExtendedSitecoreContext } from 'lib/sitecore/sitecore-context';
 
-const PageLayout = (): JSX.Element => {
-  const route = useSitecoreContext<ExtendedSitecoreContext>().sitecoreContext.route;
+const PageLayout = () => {
+  const context = useSitecoreContext();
+
+  // Fail out if we don't have route context
+  if (!context.sitecoreContext.route) {
+    return <></>;
+  }
 
   return (
     <>

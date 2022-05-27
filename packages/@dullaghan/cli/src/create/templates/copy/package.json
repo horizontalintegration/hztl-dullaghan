@@ -15,8 +15,10 @@
   },
   "scripts": {
     "bootstrap": "ts-node --project tsconfig.scripts.json scripts/sitecore/bootstrap.ts",
+    "build": "npm-run-all --serial bootstrap next:build",
     "lint:staged": "lint-staged",
     "localtunnel": "ts-node --project tsconfig.scripts.json ./scripts/sitecore/start-localtunnel.ts",
+    "next:build": "next build",
     "next:dev-tunnel": "wait-on ./.tunnel && npm run next:dev",
     "next:dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "pre-commit": "npm run lint:staged",
